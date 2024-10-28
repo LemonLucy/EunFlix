@@ -1,0 +1,87 @@
+/* Footer 전체 스타일 */
+.Footer {
+    width: 100%;
+    background-color: #141414;
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* 요소들 간의 간격 */
+  }
+  
+  /* 아이콘 컨테이너 */
+  .footer-icons {
+    display: flex;
+    gap: 15px; /* 아이콘 사이 간격 */
+  }
+  
+  .footer-icons img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* 아이콘에 호버 효과 */
+  .footer-icons img:hover {
+    transform: scale(1.1); /* 아이콘 확대 효과 */
+  }
+  
+  /* 링크 리스트 */
+  ul {
+    list-style: none; /* 기본 리스트 스타일 제거 */
+    display: flex;
+    flex-wrap: wrap; /* 여러 줄로 배치 */
+    justify-content: center;
+    gap: 10px 30px; /* 아이템 사이 간격 */
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
+  
+  ul li {
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  /* 리스트 항목 호버 시 색상 변경 */
+  ul li:hover {
+    color: #e5e5e5;
+  }
+  
+  /* 저작권 텍스트 스타일 */
+  .copyright-text {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .Footer {
+      padding: 20px 10px;
+    }
+  
+    .footer-icons img {
+      width: 25px;
+      height: 25px;
+    }
+  
+    ul {
+      gap: 5px 20px; /* 작은 화면에서 간격 조정 */
+    }
+  
+    .copyright-text {
+      font-size: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    ul {
+      flex-direction: column; /* 작은 화면에서 세로 정렬 */
+      align-items: center;
+    }
+  }
+  
