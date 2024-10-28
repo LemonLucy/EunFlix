@@ -1,0 +1,86 @@
+/* 전체 홈 스타일 */
+.home {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black;
+    position: relative;
+  }
+  
+  /* 히어로 섹션 */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center; /* 중앙 정렬 */
+    padding: 5%;
+    overflow: hidden;
+  }
+  
+  /* 배너 이미지 */
+  .banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: brightness(0.6); /* 이미지 어둡게 */
+  }
+  
+  /* 히어로 캡션 */
+  .hero-caption {
+    max-width: 50%; /* 캡션의 너비 제한 */
+    color: white;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  /* 텍스트와 이미지 조화 */
+  .hero-caption h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  .hero-caption p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .hero-caption {
+      max-width: 80%; /* 작은 화면에서는 너비 확장 */
+    }
+  
+    .hero-caption h1 {
+      font-size: 2rem;
+    }
+  
+    .hero-caption p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero {
+      height: 60vh;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+  
+    .hero-caption h1 {
+      font-size: 1.5rem;
+    }
+  
+    .hero-caption p {
+      font-size: 0.9rem;
+    }
+  }
+  
