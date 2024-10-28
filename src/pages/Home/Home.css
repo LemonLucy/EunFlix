@@ -84,3 +84,75 @@
     }
   }
   
+  /* 버튼 컨테이너 스타일 */
+.hero-btns {
+    display: flex;
+    gap: 15px; /* 버튼 사이 간격 */
+    margin-top: 20px;
+    justify-content: center; /* 버튼들을 중앙 정렬 */
+  }
+  
+  /* 기본 버튼 스타일 */
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 아이콘과 텍스트 사이 간격 */
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+  }
+  
+  /* Play 버튼 스타일 */
+  .btn img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05); /* 버튼에 살짝 확대 효과 */
+  }
+  
+  /* 기본 Play 버튼 색상 */
+  .btn {
+    background-color: white;
+    color: black;
+  }
+  
+  .btn:hover {
+    background-color: #e5e5e5;
+  }
+  
+  /* 어두운 테마 버튼 (More Info) */
+  .dark-btn {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+  }
+  
+  .dark-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #e5e5e5;
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .btn {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+    }
+  
+    .hero-btns {
+      flex-direction: column; /* 작은 화면에서 수직 정렬 */
+      align-items: center;
+    }
+  
+    .btn img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
