@@ -1,0 +1,110 @@
+/* 모든 요소 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* 네비게이션 바 스타일 */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: rgba(0, 0, 0, 0.8); /* 반투명한 배경 */
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px); /* 배경 블러 효과 */
+  }
+  
+  /* 왼쪽 로고와 메뉴 스타일 */
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-left img {
+    width: 100px;
+    margin-right: 30px;
+  }
+  
+  .navbar-left ul {
+    display: flex;
+    list-style: none;
+  }
+  
+  .navbar-left li {
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s;
+  }
+  
+  .navbar-left li:hover {
+    color: #e50914; /* 빨간색 포인트 컬러 */
+  }
+  
+  /* 오른쪽 아이콘 및 프로필 섹션 스타일 */
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-right .icons {
+    width: 24px;
+    height: 24px;
+    margin: 0 12px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  
+  .navbar-right .icons:hover {
+    opacity: 0.7;
+  }
+  
+  .navbar-right p {
+    margin: 0 12px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  
+  /* 프로필 이미지와 드롭다운 아이콘 */
+  .navbar-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .navbar-profile .profile {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid white; /* 프로필 이미지 테두리 */
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .navbar-left ul {
+      display: none;
+    }
+  
+    .navbar-left img {
+      width: 80px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 20px;
+    }
+  
+    .navbar-right {
+      margin-top: 10px;
+    }
+  }
+  
