@@ -1,130 +1,107 @@
 /* 전체 홈 스타일 */
 .home {
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-color: black;
-    position: relative;
+    min-height: 100vh; /* 화면 전체를 최소 높이로 채움 */
+    display: flex;
+    flex-direction: column; /* 세로 방향 정렬 */
+    background: linear-gradient(to bottom, black, #141414);
+    overflow-x: hidden; /* 수평 스크롤 방지 */
   }
   
   /* 히어로 섹션 */
   .hero {
-    position: relative;
     width: 100%;
     height: 80vh;
+
     display: flex;
-    align-items: flex-start;
-    justify-content: center; /* 중앙 정렬 */
-    padding: 5%;
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    padding: 10%;
+    position: relative;
+    overflow: hidden; /* Hero 내부에 스크롤 발생 방지 */
   }
   
   /* 배너 이미지 */
   .banner-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
-    filter: brightness(0.6); /* 이미지 어둡게 */
+    filter: brightness(0.6); /* 배경 이미지 어둡게 처리 */
   }
   
   /* 히어로 캡션 */
   .hero-caption {
-    max-width: 50%; /* 캡션의 너비 제한 */
-    color: white;
     position: relative;
     z-index: 2;
+    max-width: 600px;
     text-align: center;
+    color: white;
   }
   
-  /* 텍스트와 이미지 조화 */
-  .hero-caption h1 {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    font-weight: 700;
-  }
-  
-  .hero-caption p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    margin-top: 10px;
-  }
-  
-  /* 반응형 디자인 */
-  @media (max-width: 768px) {
-    .hero-caption {
-      max-width: 80%; /* 작은 화면에서는 너비 확장 */
-    }
-  
-    .hero-caption h1 {
-      font-size: 2rem;
-    }
-  
-    .hero-caption p {
-      font-size: 1rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .hero {
-      height: 60vh;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-  
-    .hero-caption h1 {
-      font-size: 1.5rem;
-    }
-  
-    .hero-caption p {
-      font-size: 0.9rem;
-    }
-  }
-  
-  /* 버튼 컨테이너 스타일 */
-.hero-btns {
+  /* 버튼 컨테이너 */
+  .hero-btns {
     display: flex;
-    gap: 15px; /* 버튼 사이 간격 */
+    gap: 15px;
+    justify-content: center;
     margin-top: 20px;
-    justify-content: center; /* 버튼들을 중앙 정렬 */
   }
   
-  /* 기본 버튼 스타일 */
+  /* 콘텐츠 섹션 */
+  .content-section {
+    width: 100%;
+    padding: 40px 20px;
+    background-color: black;
+    display: flex;
+    flex-direction: column; /* 수직 정렬 */
+    align-items: center;
+    flex-grow: 1; /* 남은 공간을 차지 */
+  }
+  
+  /* TitleCards 내부 카드 리스트 */
+  .card-list {
+    display: flex;
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    gap: 15px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth; /* 부드러운 스크롤 */
+  }
+  
+  /* 스크롤바 숨기기 */
+  .card-list::-webkit-scrollbar {
+    display: none;
+  }
+  
   .btn {
     display: flex;
     align-items: center;
-    gap: 10px; /* 아이콘과 텍스트 사이 간격 */
+    gap: 10px;
     padding: 12px 25px;
     border: none;
     border-radius: 5px;
     font-size: 1rem;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.1s ease;
+    transition: background-color 0.3s, transform 0.1s;
   }
   
-  /* Play 버튼 스타일 */
+  /* Play 버튼 */
+  .btn {
+    background-color: white;
+    color: black;
+  }
+  
   .btn img {
     width: 20px;
     height: 20px;
   }
   
   .btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05); /* 버튼에 살짝 확대 효과 */
-  }
-  
-  /* 기본 Play 버튼 색상 */
-  .btn {
-    background-color: white;
-    color: black;
-  }
-  
-  .btn:hover {
     background-color: #e5e5e5;
+    transform: scale(1.05); /* 확대 효과 */
   }
   
   /* 어두운 테마 버튼 (More Info) */
@@ -137,22 +114,3 @@
     background-color: rgba(255, 255, 255, 0.2);
     color: #e5e5e5;
   }
-  
-  /* 반응형 디자인 */
-  @media (max-width: 768px) {
-    .btn {
-      padding: 10px 20px;
-      font-size: 0.9rem;
-    }
-  
-    .hero-btns {
-      flex-direction: column; /* 작은 화면에서 수직 정렬 */
-      align-items: center;
-    }
-  
-    .btn img {
-      width: 18px;
-      height: 18px;
-    }
-  }
-  
