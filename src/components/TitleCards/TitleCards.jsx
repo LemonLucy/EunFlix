@@ -5,7 +5,14 @@ import { useRef,useEffect } from 'react'
 const TitleCards = ({title, category}) => {
 const cardsRef =useRef();
 
-console.log('TitleCards: 컴포넌트 렌더링');
+const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiOWVlMjg0YmU3NmNlMDAxOWI4ZDNkZmI2MjZlNzU0MyIsIm5iZiI6MTczMDE3ODA0Ny42NzY3MTYsInN1YiI6IjY3MjA2OGU0MjdiZDU3ZDkxZjYzNGRkNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.X4D7gfCXtBacxXh_xVjvQZsas-u8oxkUkp-AAs0S878'
+    }
+  };
+
 
 const handleWheel = (event) =>{
     event.preventDefault;
@@ -13,6 +20,12 @@ const handleWheel = (event) =>{
 }
 
 useEffect(() => {
+
+    fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
+
     cardsRef.current.addEventListener('wheel', handleWheel);
 },[])
 
