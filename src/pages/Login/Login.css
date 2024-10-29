@@ -14,7 +14,7 @@
    left: 0;
    right: 0;
    bottom: 0;
-   background-image: url('https://images.unsplash.com/photo-1507041957456-9c397ce39c97?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+   background-image: url('https://unsplash.com/photos/chicago-dream-theater-4V07cUP8Sxc');
    background-size: cover;
    background-position: center;
 }
@@ -104,6 +104,7 @@ input {
   text-indent: 10px;
   color: #2b2b2b !important;
   font-weight: 900;
+  text-shadow: none;
 }
 
 h1 {
@@ -112,6 +113,7 @@ h1 {
   text-align: center;
   margin-top: 0;
   color: #272727;
+  text-shadow: none;
 }
 
 button {
@@ -166,9 +168,11 @@ button:hover {
 }
 
 .checkbox {
-  margin-top: 2rem;
-  display: block;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
 }
 
 .card {
