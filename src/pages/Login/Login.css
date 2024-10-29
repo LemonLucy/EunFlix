@@ -14,7 +14,7 @@
    left: 0;
    right: 0;
    bottom: 0;
-   background-image: url('https://unsplash.com/photos/chicago-dream-theater-4V07cUP8Sxc');
+   background-image: url('/public/background_banner.jpg');
    background-size: cover;
    background-position: center;
 }
@@ -45,6 +45,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5rem;
 }
 
 #phone {
@@ -171,8 +172,20 @@ button:hover {
   margin-top: 1rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   justify-content: flex-start;
+}
+
+.checkbox input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.checkbox label {
+  font-size: 1rem;
+  color: #fff;
+  margin: 0;
 }
 
 .card {
