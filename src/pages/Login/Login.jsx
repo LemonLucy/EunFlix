@@ -1,10 +1,7 @@
-import './Login.css'
 
 const Login = () => {
   return (
-    <div className='login'>
-
-    </div>
+    <div>Login</div>
   )
 }
 
