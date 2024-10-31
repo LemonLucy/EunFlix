@@ -1,7 +1,6 @@
 import './TitleCards.css'
 import { useRef,useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
-import cards_data from '../../assets/cards/Cards_data'
 
 const TitleCards = ({title, category}) => {
 
