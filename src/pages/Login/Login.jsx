@@ -8,11 +8,11 @@ const Login = ({toggleCard}) => {
       <h1>Sign In</h1>
       <div className={`input`}>
         <input id="email" type="email" placeholder="Email or phone number" />
-        <label htmlFor="email">Email or phone number</label>
+        <label htmlFor="email"></label>
       </div>
       <div className={`input`}>
         <input id="password" type="password" placeholder="Password" />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password"></label>
       </div>
       <span className="checkbox remember">
         <input type="checkbox" id="remember" />
