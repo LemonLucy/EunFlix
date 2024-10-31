@@ -22,19 +22,19 @@ const Home = () => {
             exercitationem! Cupiditate, tempora amet.
           </p>
           <div className="hero-btns">
-            <button className="btn">
+            <button className="home-btn play">
               <img src={play_icon} alt="Play Icon" />
               Play
             </button>
-            <button className="btn dark-btn">
+            <button className="home-btn dark-btn">
               <img src={info_icon} alt="Info Icon" />
               More Info
             </button>
           </div>
+          <br></br>
+          <TitleCards />
         </div>
-      </div>
-      <div className="content-section">
-        <TitleCards />
+
       </div>
       <div className="more-cards">
         <TitleCards title={"Blockbuster Movies"} category={"top_rated"} />

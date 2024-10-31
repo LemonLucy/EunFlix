@@ -1,9 +1,8 @@
 /* 전체 타이틀 카드 컨테이너 */
 .titlecards {
+  display: block;
     width: 100%;
-    padding: 20px;
-    background-color: black;
-    color: white;
+    display: block;
     overflow: hidden;
   }
   
@@ -13,7 +12,7 @@
   }
   
   /* 카드 리스트 컨테이너 (수평 스크롤 적용) */
-  .card-list {
+  .titlecard-list {
     display: flex;
     overflow-x: auto; /* 수평 스크롤 활성화 */
     gap: 15px; /* 카드 사이 간격 */
@@ -22,31 +21,30 @@
   }
   
   /* 스크롤바 숨기기 (웹킷 브라우저) */
-  .card-list::-webkit-scrollbar {
+  .titlecard-list::-webkit-scrollbar {
     display: none;
-    gap: 10px;
-    overflow-x: scroll;
   }
   
   /* 개별 카드 스타일 */
-  .card {
+  .titlecard {
     min-width: 150px;
     max-width: 150px;
     border-radius: 8px;
     overflow: hidden;
-    background-color: #141414;
+    height: auto;
+    cursor: pointer;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
-    cursor: pointer;
+
   }
   
-  .card img {
+  .titlecard img {
     width: 100%;
     height: 200px;
     object-fit: cover;
   }
   
-  .card p {
+  .titlecard p {
     padding: 10px;
     text-align: center;
     font-size: 1rem;
@@ -54,22 +52,23 @@
   }
   
   /* 호버 시 확대 효과 */
-  .card:hover {
+  .titlecard:hover {
     transform: scale(1.1);
   }
   
   /* 반응형 조정 */
   @media (max-width: 768px) {
-    .card {
+    .titlecard {
+      width: 100%;
       min-width: 120px;
       max-width: 120px;
     }
   
-    .card img {
+    .titlecard img {
       height: 150px;
     }
   
-    .card p {
+    .titlecard p {
       font-size: 0.9rem;
     }
   }
