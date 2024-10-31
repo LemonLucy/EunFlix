@@ -15,7 +15,7 @@
     height: 80vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     padding: 10%;
     position: relative;
   }
@@ -23,7 +23,7 @@
   /* 배너 이미지 */
   .banner-img {
     width: 100%;
-    height: 100%;
+    height: 700px;
     object-fit: cover;
     position: absolute;
     top: 0;
