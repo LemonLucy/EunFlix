@@ -1,6 +1,6 @@
 import  { useState } from 'react';
-import Login from './Login';
-import Register from './Register';
+import Login from '../../components/Auth/Login';
+import Register from '../../components/Auth/Register';
 import './Login.css';
 
 const LoginWrapper = () => {

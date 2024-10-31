@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import './Login.css';
+import '../../pages/Login/Login.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEmail, setPassword, setError } from '../../store/actions/authActions';
 import PropTypes from 'prop-types';
 
 const Register = ({ toggleCard }) => {
-    const [email,setEmail]=useState("");
-    const [password, setPassword]=useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState("");
+    const dispatch = useDispatch();
+    const { email, password, error } = useSelector((state) => state.auth);
 
     const onSubmit=() =>{
-        if (password !== confirmPassword) {
-            setError("Passwords do not match");
-        } else {
+        if (password.length < 6) {
+            dispatch(setError("Password must be at least 6 characters"));
+          }else {
             setError("");
             console.log("User registered:", { email, password });
         }
@@ -22,18 +21,13 @@ const Register = ({ toggleCard }) => {
         <h1>Sign Up</h1>
         <div className="input">
             <input id="register-email" type="email" placeholder="Email" 
-            onChange={(e) => setEmail(e.target.value)}/>
+            onChange={(e) => dispatch(setEmail(e.target.value))}/>
             <label htmlFor="register-email"></label>
         </div>
         <div className="input">
             <input id="register-password" type="password" placeholder="Password" 
-            onChange={(e) => setPassword(e.target.value)}/>
+            onChange={(e) => dispatch(setPassword(e.target.value))}    />        
             <label htmlFor="register-password"></label>
-        </div>
-        <div className="input">
-            <input id="confirm-password" type="password" placeholder="Confirm Password" 
-            onChange={(e) => setConfirmPassword(e.target.value)}/>
-            <label htmlFor="confirm-password"></label>
         </div>
         {error && <p className="error-message">{error}</p>}
         <span className="checkbox remember">
