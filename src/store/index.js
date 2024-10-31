@@ -1,11 +1,10 @@
-import { configureStore, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './reducers/authReducer';
 
-const rootReducer = combineReducers({
-  auth: authReducer,
+const store = configureStore({
+    reducer: {
+        auth: authReducer,
+    }
 });
 
-const store = configureStore(rootReducer);
-
-export { store, Provider };
+export default store;
