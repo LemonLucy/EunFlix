@@ -13,12 +13,18 @@ const Login = ({toggleCard}) => {
   const navigate = useNavigate();
   const { email, password, error } = useSelector((state) => state.auth);
   const [storedUser] = useLocalStorage('user'); // 'user' 데이터를 불러옴
-  const [, setIsAuthenticated] = useLocalStorage('isAuthenticated');
+  const [isAuthenticated, setIsAuthenticated] = useLocalStorage('isAuthenticated');
 
+  //로그인 시 localstorage와 redux상태 업데이트
   const onSubmit = () => {
     if (storedUser && email === storedUser.email && password === storedUser.password) {
+      //redux 상태 업데이트
       dispatch(loginSuccess());
       setIsAuthenticated(true);
+
+      //localstorage에 로그인상태 업데이트
+      localStorage.setItem('isAuthenticated',true);
+
       navigate('/');
     } else {
       dispatch(setError("Email and password are required"));
@@ -26,11 +32,17 @@ const Login = ({toggleCard}) => {
   };
 
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/'); // 로그인 상태가 true로 변경되면 Home으로 리디렉션
+    }
+  }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
     if (error) {
       showToast("Error", error, "error");
-      console.log(error);
+      dispatch(setError(null));
     }
-  }, [error]);
+  }, [error,dispatch]);
 
   return (
     <div className="login-card" id="login">

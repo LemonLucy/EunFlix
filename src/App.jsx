@@ -7,7 +7,6 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { loginSuccess } from "./store/actions/authActions";
-
 const App = () => {
   const dispatch = useDispatch();
 
@@ -16,10 +15,9 @@ const App = () => {
     const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
 
     if (storedUser && isAuthenticated) {
-      dispatch(loginSuccess(storedUser));
+      dispatch(loginSuccess(storedUser)); // 로그인 상태 설정
     }
   }, [dispatch]);
-
   return (
     <Provider store={store}>
       <Routes>

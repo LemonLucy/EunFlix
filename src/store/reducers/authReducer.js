@@ -17,7 +17,7 @@ const initialState = {
       case 'LOGIN_SUCCESS':
         return { ...state, isLoggedIn: true, error: '' };
       case 'LOGOUT':
-        return { ...state, isLoggedIn: false, email: '', password: '' };
+        return initialState;
       default:
         return state;
     }
