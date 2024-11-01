@@ -4,8 +4,23 @@ import search_icon from '../../assets/search_icon.svg'
 import bell_icon from '../../assets/bell_icon.svg'
 import profile_img from '../../assets/profile_img.png'
 import caret_icon from '../../assets/caret_icon.svg'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../../store/actions/authActions'
+
 
 const Navbar = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+    const handleLogout = () => {
+        // Redux 상태와 localStorage에서 사용자 정보 제거
+        dispatch(logout());
+        localStorage.removeItem('user-info');
+        localStorage.removeItem('isAuthenticated');
+        navigate('/login'); // 로그인 페이지로 리디렉션
+      };
+
   return (
     <>
         <div className='navbar'>
@@ -27,7 +42,7 @@ const Navbar = () => {
                 <div className='navbar-profile'>
                     <img src={profile_img} alt="" className='profile' />
                     <img src={caret_icon} alt="" />
-                    <div className='dropdown'>
+                    <div className='dropdown' onClick={handleLogout}>
                         <p>Sign Out</p>
                     </div>
                 </div>
