@@ -4,6 +4,7 @@ import { setEmail, setPassword, setError } from '../../store/actions/authActions
 import PropTypes from 'prop-types';
 import useShowToast from '../../hooks/useShowToast';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { useEffect } from 'react';
 
 const Register = ({ toggleCard }) => {
     const dispatch = useDispatch();
@@ -11,15 +12,21 @@ const Register = ({ toggleCard }) => {
     const showToast=useShowToast();
     const [, setUserInLocalStorage] = useLocalStorage('user');
 
+    useEffect(() => {
+        if (error) {
+            showToast('Error', error, 'error');
+            console.log(error)
+        }
+    }, [error]);
+
+      
     const onSubmit = () => {
         if (!email) {
           dispatch(setError("Email is required"));
-          showToast('Error', 'Email is required', 'error');
           return;
         }
         if (password.length < 6) {
           dispatch(setError("Password must be at least 6 characters"));
-          showToast('Error', 'Password must be at least 6 characters', 'error');
           return;
         }
         
@@ -27,6 +34,9 @@ const Register = ({ toggleCard }) => {
         // 등록 성공 시: 로그인 화면으로 이동
         showToast('Success', 'Account created successfully. Please log in.', 'success');
         toggleCard(); // 로그인 화면으로 전환
+
+        //에러초기화
+        dispatch(setError(null));
       };
 
     return (

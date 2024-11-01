@@ -5,6 +5,7 @@ import { setEmail, setPassword, setError, loginSuccess } from '../../store/actio
 import useShowToast from '../../hooks/useShowToast';
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { useEffect } from 'react';
 
 const Login = ({toggleCard}) => {
   const dispatch = useDispatch();
@@ -17,14 +18,19 @@ const Login = ({toggleCard}) => {
   const onSubmit = () => {
     if (storedUser && email === storedUser.email && password === storedUser.password) {
       dispatch(loginSuccess());
-      showToast('Success', 'You have successfully logged in', 'success');
       setIsAuthenticated(true);
       navigate('/');
     } else {
       dispatch(setError("Email and password are required"));
-      showToast('Error', 'Email and password are required', 'error');
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      showToast("Error", error, "error");
+      console.log(error);
+    }
+  }, [error]);
 
   return (
     <div className="login-card" id="login">
