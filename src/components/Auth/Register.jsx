@@ -2,19 +2,32 @@ import '../../pages/Login/Login.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword, setError } from '../../store/actions/authActions';
 import PropTypes from 'prop-types';
+import useShowToast from '../../hooks/useShowToast';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const Register = ({ toggleCard }) => {
     const dispatch = useDispatch();
     const { email, password, error } = useSelector((state) => state.auth);
+    const showToast=useShowToast();
+    const [, setUserInLocalStorage] = useLocalStorage('user');
 
-    const onSubmit=() =>{
-        if (password.length < 6) {
-            dispatch(setError("Password must be at least 6 characters"));
-          }else {
-            setError("");
-            console.log("User registered:", { email, password });
+    const onSubmit = () => {
+        if (!email) {
+          dispatch(setError("Email is required"));
+          showToast('Error', 'Email is required', 'error');
+          return;
         }
-    }
+        if (password.length < 6) {
+          dispatch(setError("Password must be at least 6 characters"));
+          showToast('Error', 'Password must be at least 6 characters', 'error');
+          return;
+        }
+        
+        setUserInLocalStorage({ email, password });
+        // 등록 성공 시: 로그인 화면으로 이동
+        showToast('Success', 'Account created successfully. Please log in.', 'success');
+        toggleCard(); // 로그인 화면으로 전환
+      };
 
     return (
         <div className="login-card" id="register">

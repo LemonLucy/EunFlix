@@ -7,12 +7,10 @@ import { Provider } from 'react-redux';
 const App = () => {
   return (
     <Provider store={store}>
-      <div>
-        <Routes>
-          <Route path='/' element={<Home/>} />
-          <Route path='/login' element={<LoginWrapper/>} />
-        </Routes>
-      </div>
+          <Routes>
+            <Route path='/' element={<Home/>} />
+            <Route path='/login' element={<LoginWrapper/>} />
+          </Routes>
     </Provider>
     
   )

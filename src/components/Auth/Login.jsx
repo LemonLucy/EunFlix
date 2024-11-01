@@ -2,18 +2,27 @@ import PropTypes from 'prop-types';
 import '../../pages/Login/Login.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword, setError, loginSuccess } from '../../store/actions/authActions';
-
+import useShowToast from '../../hooks/useShowToast';
+import { useNavigate } from 'react-router-dom';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 const Login = ({toggleCard}) => {
   const dispatch = useDispatch();
+  const showToast=useShowToast();
+  const navigate = useNavigate();
   const { email, password, error } = useSelector((state) => state.auth);
+  const [storedUser] = useLocalStorage('user'); // 'user' 데이터를 불러옴
+  const [, setIsAuthenticated] = useLocalStorage('isAuthenticated');
 
   const onSubmit = () => {
-    if (email && password) {
+    if (storedUser && email === storedUser.email && password === storedUser.password) {
       dispatch(loginSuccess());
-      console.log("User logged in:", { email });
+      showToast('Success', 'You have successfully logged in', 'success');
+      setIsAuthenticated(true);
+      navigate('/');
     } else {
       dispatch(setError("Email and password are required"));
+      showToast('Error', 'Email and password are required', 'error');
     }
   };
 
