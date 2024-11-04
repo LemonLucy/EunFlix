@@ -20,17 +20,39 @@ const TitleCards = ({title, category}) => {
       cardsRef.current.scrollLeft += event.deltaY;
   }
 
+  // 로컬 스토리지에 영화 데이터 저장 함수
+  const saveToLocalStorage = (movies) => {
+    const storedMovies = JSON.parse(localStorage.getItem('movies')) || [];
+    const newMovies = movies.filter(
+      (movie) => !storedMovies.some((stored) => stored.id === movie.id)
+    );
+
+    if (newMovies.length > 0) {
+      localStorage.setItem('movies', JSON.stringify([...storedMovies, ...newMovies]));
+    }
+  };
+
   useEffect(() => {
       fetch(`https://api.themoviedb.org/3/movie/${category?category:"now_playing"}?language=ko-KR&page=1`, options)
-      .then(response => response.json())
-      .then(response => {
-          setApiData(response.results)
-          }
-      )
+      .then((response) => response.json())
+      .then((response) => {
+        const movies = response.results.map((movie) => ({
+          id: movie.id,
+          title: movie.title,
+          poster_path: movie.poster_path,
+          backdrop_path: movie.backdrop_path,
+          overview: movie.overview,
+          vote_average: movie.vote_average,
+          release_date: movie.release_date,
+          genre_ids: movie.genre_ids,
+        }));
+        setApiData(movies);
+        saveToLocalStorage(movies); // 로컬 스토리지에 저장
+      })
       .catch(err => console.error(err));
 
       cardsRef.current.addEventListener('wheel', handleWheel);
-  },[])
+  },[category])
 
   return (
     <div className='titlecards'>
