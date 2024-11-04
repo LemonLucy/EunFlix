@@ -7,6 +7,7 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { loginSuccess,setEmail } from "./store/actions/authActions";
+import Popular from "./pages/Popular/Popular";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,9 @@ const App = () => {
       <Routes>
         <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path='/login' element={<LoginWrapper/>} />
+        <Route path='/popular' element={<Popular />} />
+        <Route path='/search' element={<Popular />} />
+        <Route path='/wishlist' element={<Popular />} />
       </Routes>
     </Provider>
     
