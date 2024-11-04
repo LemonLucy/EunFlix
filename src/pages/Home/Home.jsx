@@ -41,10 +41,22 @@ const Home = () => {
       <br></br>
       <br></br>
       <div className="more-cards">
-        <TitleCards title={"Blockbuster Movies"} category={"top_rated"} />
-        <TitleCards title={"Only on Netflix"} category={"popular"} />
-        <TitleCards title={"Upcoming"} category={"upcoming"} />
-        <TitleCards title={"Top Picks for You"} category={"now_playing"} />
+      <TitleCards 
+          title="Blockbuster Movies" 
+          filters={{ sortBy: 'vote_average.desc', genre: '28', rating: '8' }} 
+        />
+        <TitleCards 
+          title="Only on Netflix" 
+          filters={{ sortBy: 'popularity.desc', genre: '35' }} 
+        />
+        <TitleCards 
+          title="Upcoming" 
+          filters={{ sortBy: 'release_date.desc', year: '2024' }} 
+        />
+        <TitleCards 
+          title="Top Picks for You" 
+          filters={{ sortBy: 'popularity.desc', rating: '7' }} 
+        />
       </div>
       <Footer />
     </div>

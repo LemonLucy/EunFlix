@@ -2,7 +2,7 @@ import './TitleCards.css'
 import { useRef,useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 
-const TitleCards = ({title, filters}) => {
+const TitleCards = ({title, filters= {}}) => {
 
   const cardsRef =useRef();
   const [apiData, setApiData]=useState([])
@@ -33,7 +33,7 @@ const TitleCards = ({title, filters}) => {
   // };
 
   const fetchMovies = () => {
-    const { genre, rating, sortBy, year } = filters;
+    const { genre, rating, sortBy, year } = filters|| {};
     let url = `https://api.themoviedb.org/3/discover/movie?language=ko-KR&sort_by=${sortBy}&page=1`;
 
     if (genre) url += `&with_genres=${genre}`;
