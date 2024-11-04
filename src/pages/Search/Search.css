@@ -1,0 +1,68 @@
+/* SearchPage.css */
+.search-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    color: #111;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #e50914;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .filters select,
+  .filters input {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .filters button {
+    padding: 8px 12px;
+    font-size: 1rem;
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .filters button:hover {
+    background-color: #b20710;
+  }
+  
+  .movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .movie-card {
+    width: calc(25% - 10px);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .movie-card img {
+    width: 100%;
+    display: block;
+  }
+  
+  .movie-card p {
+    padding: 10px;
+    font-size: 1rem;
+    text-align: center;
+    color: #333;
+  }
+  
