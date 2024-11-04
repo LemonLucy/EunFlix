@@ -17,32 +17,37 @@ const Login = ({toggleCard}) => {
 
   //로그인 시 localstorage와 redux상태 업데이트
   const onSubmit = () => {
+    if (!email || !password) {
+      dispatch(setError("Email and password are required"));
+      return;
+    }
     if (storedUser && email === storedUser.email && password === storedUser.password) {
+      console.log("Login success - navigating to home");
       //redux 상태 업데이트
       dispatch(loginSuccess());
-      setIsAuthenticated(true);
-
-      //localstorage에 로그인상태 업데이트
-      localStorage.setItem('isAuthenticated',true);
+      
+      if (!isAuthenticated) { // 이미 true인 상태에서는 다시 설정하지 않음
+        setIsAuthenticated(true);
+      }
 
       navigate('/');
     } else {
-      dispatch(setError("Email and password are required"));
+      dispatch(setError("Invalid email or password"));
     }
   };
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/'); // 로그인 상태가 true로 변경되면 Home으로 리디렉션
-    }
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate('/'); // 로그인 상태가 true로 변경되면 Home으로 리디렉션
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     if (error) {
       showToast("Error", error, "error");
       dispatch(setError(null));
     }
-  }, [error,dispatch]);
+  }, [error,dispatch,showToast]);
 
   return (
     <div className="login-card" id="login">

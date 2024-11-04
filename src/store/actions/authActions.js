@@ -14,11 +14,17 @@ export const setEmail = (email) => ({
     payload: error,
   });
   
-  export const loginSuccess = () => ({
-    type: 'LOGIN_SUCCESS',
-  });
+  export const loginSuccess = () => {
+    localStorage.setItem('isLoggedIn', true);
+    return {
+      type: 'LOGIN_SUCCESS',
+    };
+  };
   
-  export const logout = () => ({
-    type: 'LOGOUT',
-  });
-  
+  export const logout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user-info'); // 필요 시 유저 정보도 삭제
+    return {
+      type: 'LOGOUT',
+    };
+  };

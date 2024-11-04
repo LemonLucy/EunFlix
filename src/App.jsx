@@ -6,18 +6,25 @@ import { Provider } from 'react-redux';
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { loginSuccess } from "./store/actions/authActions";
+import { loginSuccess,setEmail } from "./store/actions/authActions";
+
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user-info'));
-    const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
-
-    if (storedUser && isAuthenticated) {
-      dispatch(loginSuccess(storedUser)); // 로그인 상태 설정
+    try {
+      const isAuthenticated = JSON.parse(localStorage.getItem('isLoggedIn'));
+      const storedUser = JSON.parse(localStorage.getItem('user-info'));
+  
+      if (isAuthenticated && storedUser) {
+        dispatch(loginSuccess());
+        dispatch(setEmail(storedUser.email)); 
+      }
+    } catch (error) {
+      console.error("Failed to parse localStorage data:", error);
     }
   }, [dispatch]);
+
   return (
     <Provider store={store}>
       <Routes>

@@ -15,12 +15,13 @@ const Register = ({ toggleCard }) => {
     useEffect(() => {
         if (error) {
             showToast('Error', error, 'error');
-            console.log(error)
+            dispatch(setError(null));
         }
-    }, [error]);
+    }, [error, dispatch, showToast]);
 
       
     const onSubmit = () => {
+
         if (!email) {
           dispatch(setError("Email is required"));
           return;
@@ -29,7 +30,7 @@ const Register = ({ toggleCard }) => {
           dispatch(setError("Password must be at least 6 characters"));
           return;
         }
-        
+        //localstorage에 사용자 정보 저장
         setUserInLocalStorage({ email, password });
         // 등록 성공 시: 로그인 화면으로 이동
         showToast('Success', 'Account created successfully. Please log in.', 'success');
