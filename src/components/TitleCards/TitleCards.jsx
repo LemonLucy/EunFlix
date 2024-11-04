@@ -43,10 +43,12 @@ const TitleCards = ({title, filters= {}}) => {
     fetch(url, options)
       .then((response) => response.json())
       .then((response) => {
-        const movies = response.results.map((movie) => ({
+        const movies = response.results
+        .filter((movie) => movie.backdrop_path)
+        .map((movie) => ({
           id: movie.id,
           title: movie.title,
-          poster_path: movie.poster_path,
+          // poster_path: movie.poster_path,
           backdrop_path: movie.backdrop_path,
           overview: movie.overview,
           vote_average: movie.vote_average,
