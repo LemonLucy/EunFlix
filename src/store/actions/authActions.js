@@ -15,14 +15,14 @@ export const setEmail = (email) => ({
   });
   
   export const loginSuccess = () => {
-    localStorage.setItem('isLoggedIn', true);
+    localStorage.setItem('isAuthenticated', true);
     return {
       type: 'LOGIN_SUCCESS',
     };
   };
   
   export const logout = () => {
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('user-info'); // 필요 시 유저 정보도 삭제
     return {
       type: 'LOGOUT',

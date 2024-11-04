@@ -2,7 +2,7 @@
 const initialState = {
     email: '',
     password: '',
-    isLoggedIn: false,
+    isAuthenticated: JSON.parse(localStorage.getItem('isAuthenticated')) || false,
     error: '',
   };
   
@@ -15,9 +15,11 @@ const initialState = {
       case 'SET_ERROR':
         return { ...state, error: action.payload };
       case 'LOGIN_SUCCESS':
+        localStorage.setItem('isAuthenticated', true);
         return { ...state, isLoggedIn: true, error: '' };
       case 'LOGOUT':
-        return initialState;
+        localStorage.removeItem('isAuthenticated');
+        return { ...state, isAuthenticated: false };
       default:
         return state;
     }

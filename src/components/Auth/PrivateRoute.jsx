@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ children }) => {
-  const isAuthenticated = JSON.parse(localStorage.getItem('isAuthenticated'));
-
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   // if (isAuthenticated === null || isAuthenticated === undefined) {
   //   return <div>Loading...</div>; // 로딩 화면 표시
   // }
