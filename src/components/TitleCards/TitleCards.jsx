@@ -15,23 +15,6 @@ const TitleCards = ({title, filters= {}}) => {
       }
     };
 
-  const handleWheel = (event) =>{
-      event.preventDefault;
-      cardsRef.current.scrollLeft += event.deltaY;
-  }
-
-  // // 로컬 스토리지에 영화 데이터 저장 함수
-  // const saveToLocalStorage = (movies) => {
-  //   const storedMovies = JSON.parse(localStorage.getItem('movies')) || [];
-  //   const newMovies = movies.filter(
-  //     (movie) => !storedMovies.some((stored) => stored.id === movie.id)
-  //   );
-
-  //   if (newMovies.length > 0) {
-  //     localStorage.setItem('movies', JSON.stringify([...storedMovies, ...newMovies]));
-  //   }
-  // };
-
   const fetchMovies = () => {
     const { genre, rating, sortBy, year } = filters|| {};
     let url = `https://api.themoviedb.org/3/discover/movie?language=ko-KR&sort_by=${sortBy}&page=1`;
@@ -48,7 +31,6 @@ const TitleCards = ({title, filters= {}}) => {
         .map((movie) => ({
           id: movie.id,
           title: movie.title,
-          // poster_path: movie.poster_path,
           backdrop_path: movie.backdrop_path,
           overview: movie.overview,
           vote_average: movie.vote_average,
@@ -64,25 +46,32 @@ const TitleCards = ({title, filters= {}}) => {
     fetchMovies(); // filters가 변경될 때마다 API 호출
   }, [filters]);
 
-  useEffect(() => {
-    cardsRef.current.addEventListener('wheel', handleWheel);
-    return () => cardsRef.current.removeEventListener('wheel', handleWheel);
-  }, []);
+  const scrollLeft = () => {
+    cardsRef.current.scrollLeft -= 5 * 200; // 5개의 카드 너비만큼 이동
+  };
+
+  const scrollRight = () => {
+    cardsRef.current.scrollLeft += 5 * 200; // 5개의 카드 너비만큼 이동
+  };
 
   return (
     <div className="titlecards">
       <h2>{title || "Popular on Netflix"}</h2>
-      <div className="titlecard-list" ref={cardsRef}>
-        {apiData.length > 0 ? (
-          apiData.map((card, index) => (
-            <div className="titlecard" key={index}>
-              <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
-              <p>{card.title}</p>
-            </div>
-          ))
-        ) : (
-          <p>No data available</p>
-        )}
+      <div className="titlecard-container">
+        <button onClick={scrollLeft} className="scroll-button">{"<"}</button>
+        <div className="titlecard-list" ref={cardsRef}>
+          {apiData.length > 0 ? (
+            apiData.map((card, index) => (
+              <div className="titlecard" key={index}>
+                <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
+                <p>{card.title}</p>
+              </div>
+            ))
+          ) : (
+            <p>No data available</p>
+          )}
+        </div>
+        <button onClick={scrollRight} className="scroll-button">{">"}</button>
       </div>
     </div>
   );
