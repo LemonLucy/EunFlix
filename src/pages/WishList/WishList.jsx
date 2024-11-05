@@ -4,8 +4,11 @@ import useWishlist from '../../hooks/useWishlist';
 import { useState } from 'react';
 import MovieModal from '../../components//TitleCards/MovieModal'; // Import MovieModal
 import { useDisclosure } from '@chakra-ui/react';
+import logo from '../../assets/logo.png'
+import { useNavigate } from 'react-router-dom';
 
 const WishList = () => {
+  const navigate = useNavigate();
   const [wishlist, toggleWishlist] = useWishlist();
   const [selectedMovie, setSelectedMovie] = useState(null); // State for the selected movie
   const { isOpen, onOpen, onClose } = useDisclosure(); // Chakra UI modal controls
@@ -32,6 +35,7 @@ const WishList = () => {
 
   return (
     <div className="titlecards">
+      <img src={logo} alt="" onClick={() => navigate('/')} className="logo"  />
       <h2>My Wishlist</h2>
       <div className="titlecard-grid">
         {getCurrentPageItems().length > 0 ? (

@@ -1,6 +1,8 @@
 import './Search.css';
 import {  useState } from 'react';
 import TitleCards from '../../components/TitleCards/TitleCards';
+import logo from '../../assets/logo.png'
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
   const [filters, setFilters] = useState({
@@ -9,6 +11,7 @@ const Search = () => {
     sortBy: 'popularity.desc',
     year: '',
   });
+  const navigate=useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,6 +40,7 @@ const Search = () => {
 
   return (
     <div className="search-page">
+      <img src={logo} alt="" onClick={() => navigate('/')} className="logo"  />
       <h1>Movie Search</h1>
 
       {/* Filter UI */}
