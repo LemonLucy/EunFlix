@@ -28,9 +28,7 @@ const Search = () => {
       year: '',
     });
   };
-  const submit = () => {
-    setAppliedFilters(filters);
-  };
+
 
   return (
     <div className="search-page">
@@ -69,7 +67,6 @@ const Search = () => {
         />
 
         <button onClick={resetFilters}>Reset</button>
-        <button onClick={submit}>Submit</button>
       </div>
 
       {/* TitleCards 컴포넌트에 필터링 조건을 전달 */}
