@@ -38,11 +38,12 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-start;
     opacity: 0;
     transition: opacity 0.3s ease;
     gap: 10px;
+    padding: 10px;
   }
   .icon-button {
     display: flex;

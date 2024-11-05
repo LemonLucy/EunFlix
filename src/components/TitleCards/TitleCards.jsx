@@ -2,17 +2,13 @@ import './TitleCards.css'
 import { useRef,useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { AiFillHeart } from 'react-icons/ai';
-import { FaComment } from 'react-icons/fa';
+import useWishlist from '../../hooks/useWishlist';
 
 const TitleCards = ({title, filters= {}}) => {
 
   const cardsRef =useRef();
   const [apiData, setApiData]=useState([])
-
-  const [likedMovies, setLikedMovies] = useState(() => {
-    const savedLikes = JSON.parse(localStorage.getItem('wishlist')) || [];
-    return Array.isArray(savedLikes) ? savedLikes : [];
-  });
+  const [wishlist, toggleWishlist] = useWishlist();
 
   const options = {
       method: 'GET',
@@ -53,32 +49,6 @@ const TitleCards = ({title, filters= {}}) => {
     fetchMovies(); // filters가 변경될 때마다 API 호출
   }, [filters]);
 
-  const toggleLike = (movie) => {
-    setLikedMovies((prev) => {
-
-      let updatedLikes;
-      if (prev.some((item) => item.id === movie.id)) {
-        // If already liked, remove from wishlist
-        updatedLikes = prev.filter((item) => item.id !== movie.id);
-      } else {
-        // If not liked, add to wishlist
-        updatedLikes = [...prev, {
-          id: movie.id,
-          title: movie.title,
-          backdrop_path: movie.backdrop_path,
-          overview: movie.overview,
-          vote_average: movie.vote_average,
-          release_date: movie.release_date,
-          genre_ids: movie.genre_ids,
-        }];
-      }
-      // Save updated likes to localStorage
-      localStorage.setItem('wishlist', JSON.stringify(updatedLikes));
-      console.log("Wishlist saved to localStorage:", JSON.parse(localStorage.getItem('wishlist')));
-      return updatedLikes;
-    });
-  };
-
   const scrollLeft = () => {
     cardsRef.current.scrollLeft -= 5 * 200; // 5개의 카드 너비만큼 이동
   };
@@ -99,14 +69,10 @@ const TitleCards = ({title, filters= {}}) => {
                 <div className="image-container">
                 <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
                   <div className="overlay">
-                    <div className="icon-button" onClick={() => toggleLike(card)}>
-                      <AiFillHeart size={25} cursor={"pointer"} color={likedMovies.some((item) => item.id === card.id)? 'red' : 'white'}/>
+                    <div className="icon-button" onClick={() => toggleWishlist(card)}>
+                      <AiFillHeart size={25} cursor={"pointer"} color={wishlist.some((item) => item.id === card.id)? 'red' : 'white'}/>
                     </div>
-                    <div className="icon-button">
-                      <FaComment size={20} color="white" />
-                      <span className="count-text">{card.commentCount}</span>
-                    </div>
-                    </div>
+                  </div>
                   <p>{card.title}</p>
                 </div>
               </div>

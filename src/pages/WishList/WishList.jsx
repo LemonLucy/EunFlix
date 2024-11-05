@@ -1,28 +1,21 @@
 import '../../components/TitleCards/TitleCards.css';
-import { useEffect, useState } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
+import useWishlist from '../../hooks/useWishlist';
 
 const WishList = () => {
-  const [wishlistMovies, setWishlistMovies] = useState([]);
-
-  useEffect(() => {
-    // Retrieve wishlist from localStorage
-    const savedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    console.log("Retrieved wishlist from localStorage:", savedWishlist);
-    setWishlistMovies(savedWishlist);
-  }, []);
+  const [wishlist, toggleWishlist] = useWishlist();
 
   return (
     <div className="titlecards">
       <h2>My Wishlist</h2>
       <div className="titlecard-container">
-        {wishlistMovies.length > 0 ? (
-          wishlistMovies.map((movie) => (
+        {wishlist.length > 0 ? (
+          wishlist.map((movie) => (
             <div className="titlecard" key={movie.id}>
               <div className="image-container">
                 <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt="movie" />
                 <div className="overlay">
-                  <div className="icon-button">
+                  <div className="icon-button"  onClick={() => toggleWishlist(movie)}>
                     <AiFillHeart size={25} color="red" /> {/* Always red since it's in the wishlist */}
                   </div>
                 </div>
