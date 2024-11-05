@@ -10,6 +10,7 @@ import { loginSuccess,setEmail } from "./store/actions/authActions";
 import Popular from "./pages/Popular/Popular";
 import Search from "./pages/Search/Search";
 import WishList from "./pages/WishList/WishList";
+import { setWishlist } from "./store/slices/wishlistSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -18,10 +19,12 @@ const App = () => {
     try {
       const isAuthenticated = JSON.parse(localStorage.getItem('isLoggedIn'));
       const storedUser = JSON.parse(localStorage.getItem('user-info'));
+      const savedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   
       if (isAuthenticated && storedUser) {
         dispatch(loginSuccess());
         dispatch(setEmail(storedUser.email)); 
+        dispatch(setWishlist(savedWishlist));
       }
     } catch (error) {
       console.error("Failed to parse localStorage data:", error);
