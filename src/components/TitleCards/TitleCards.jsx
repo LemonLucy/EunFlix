@@ -1,11 +1,18 @@
 import './TitleCards.css'
 import { useRef,useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
+import { AiFillHeart } from 'react-icons/ai';
+import { FaComment } from 'react-icons/fa';
 
 const TitleCards = ({title, filters= {}}) => {
 
   const cardsRef =useRef();
   const [apiData, setApiData]=useState([])
+
+  const [likedMovies, setLikedMovies] = useState(() => {
+    const savedLikes = JSON.parse(localStorage.getItem('wishlist')) || [];
+    return Array.isArray(savedLikes) ? savedLikes : [];
+  });
 
   const options = {
       method: 'GET',
@@ -46,6 +53,23 @@ const TitleCards = ({title, filters= {}}) => {
     fetchMovies(); // filters가 변경될 때마다 API 호출
   }, [filters]);
 
+  const toggleLike = (movieId) => {
+    setLikedMovies((prev) => {
+
+      let updatedLikes;
+      if (prev.includes(movieId)) {
+        // If already liked, remove from wishlist
+        updatedLikes = prev.filter(id => id !== movieId);
+      } else {
+        // If not liked, add to wishlist
+        updatedLikes = [...prev, movieId];
+      }
+      // Save updated likes to localStorage
+      localStorage.setItem('wishlist', JSON.stringify(updatedLikes));
+      return updatedLikes;
+    });
+  };
+
   const scrollLeft = () => {
     cardsRef.current.scrollLeft -= 5 * 200; // 5개의 카드 너비만큼 이동
   };
@@ -61,10 +85,21 @@ const TitleCards = ({title, filters= {}}) => {
         <button onClick={scrollLeft} className="scroll-button">{"<"}</button>
         <div className="titlecard-list" ref={cardsRef}>
           {apiData.length > 0 ? (
-            apiData.map((card, index) => (
-              <div className="titlecard" key={index}>
+            apiData.map((card) => (
+              <div className="titlecard" key={card.id}>
+                <div className="image-container">
                 <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
-                <p>{card.title}</p>
+                  <div className="overlay">
+                    <div className="icon-button" onClick={() => toggleLike(card.id)}>
+                      <AiFillHeart size={25} cursor={"pointer"} color={likedMovies.includes(card.id)? 'red' : 'white'}/>
+                    </div>
+                    <div className="icon-button">
+                      <FaComment size={20} color="white" />
+                      <span className="count-text">{card.commentCount}</span>
+                    </div>
+                    </div>
+                  <p>{card.title}</p>
+                </div>
               </div>
             ))
           ) : (
