@@ -25,12 +25,12 @@ const Navbar = () => {
     <>
         <div className='navbar'>
             <div className='navbar-left'>
-                <img src={logo} alt="" />
+                <img src={logo} alt="" onClick={() => navigate('/')} className="logo"  />
                 <ul>
-                    <li>Home</li>
-                    <li>Popular</li>
-                    <li>WishList</li>
-                    <li>Search</li>
+                <li onClick={() => navigate('/')}>Home</li>
+                    <li onClick={() => navigate('/popular')}>Popular</li>
+                    <li onClick={() => navigate('/wishlist')}>WishList</li>
+                    <li onClick={() => navigate('/search')}>Search</li>
                 </ul>
             </div>
             <div className='navbar-right'>

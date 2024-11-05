@@ -10,7 +10,7 @@ const Search = () => {
     year: '',
   });
 
-  const [, setAppliedFilters] = useState(filters);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +18,7 @@ const Search = () => {
       ...prevFilters,
       [name]: value,
     }));
+    setCurrentPage(1);
   };
 
   const resetFilters = () => {
@@ -27,8 +28,12 @@ const Search = () => {
       sortBy: 'popularity.desc',
       year: '',
     });
+    setCurrentPage(1);
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="search-page">
@@ -70,7 +75,8 @@ const Search = () => {
       </div>
 
       {/* TitleCards 컴포넌트에 필터링 조건을 전달 */}
-      <TitleCards title="Search Results" filters={filters} />
+      <TitleCards title="Search Results" filters={filters} 
+      currentPage={currentPage} onPageChange={handlePageChange}/>
     </div>
   );
 };

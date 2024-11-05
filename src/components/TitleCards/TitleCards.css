@@ -131,3 +131,29 @@
     }
   }
   
+  .titlecard-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 items per row */
+    gap: 5px; /* Spacing between items */
+    margin-top: 20px;
+    padding: 0 100px;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  
+  .pagination button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 8px; /* Add more space between buttons */
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
