@@ -93,7 +93,7 @@ const TitleCards = ({title, filters= {}}) => {
         </div>
         <button onClick={scrollRight} className="scroll-button">{">"}</button>
       </div>
-      {selectedMovie && <MovieModal movie={selectedMovie} isOpen={isOpen} onClose={onClose} />}
+      {selectedMovie && <MovieModal movie={selectedMovie} isOpen={isOpen} onClose={onClose} isLiked={wishlist.some((item) => item.id === selectedMovie.id)} toggleWishlist={toggleWishlist}/>}
     </div>
   );
 };
