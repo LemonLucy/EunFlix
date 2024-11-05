@@ -8,6 +8,7 @@ const WishList = () => {
   useEffect(() => {
     // Retrieve wishlist from localStorage
     const savedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    console.log("Retrieved wishlist from localStorage:", savedWishlist);
     setWishlistMovies(savedWishlist);
   }, []);
 

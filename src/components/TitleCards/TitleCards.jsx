@@ -53,19 +53,28 @@ const TitleCards = ({title, filters= {}}) => {
     fetchMovies(); // filters가 변경될 때마다 API 호출
   }, [filters]);
 
-  const toggleLike = (movieId) => {
+  const toggleLike = (movie) => {
     setLikedMovies((prev) => {
 
       let updatedLikes;
-      if (prev.includes(movieId)) {
+      if (prev.some((item) => item.id === movie.id)) {
         // If already liked, remove from wishlist
-        updatedLikes = prev.filter(id => id !== movieId);
+        updatedLikes = prev.filter((item) => item.id !== movie.id);
       } else {
         // If not liked, add to wishlist
-        updatedLikes = [...prev, movieId];
+        updatedLikes = [...prev, {
+          id: movie.id,
+          title: movie.title,
+          backdrop_path: movie.backdrop_path,
+          overview: movie.overview,
+          vote_average: movie.vote_average,
+          release_date: movie.release_date,
+          genre_ids: movie.genre_ids,
+        }];
       }
       // Save updated likes to localStorage
       localStorage.setItem('wishlist', JSON.stringify(updatedLikes));
+      console.log("Wishlist saved to localStorage:", JSON.parse(localStorage.getItem('wishlist')));
       return updatedLikes;
     });
   };
@@ -90,8 +99,8 @@ const TitleCards = ({title, filters= {}}) => {
                 <div className="image-container">
                 <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
                   <div className="overlay">
-                    <div className="icon-button" onClick={() => toggleLike(card.id)}>
-                      <AiFillHeart size={25} cursor={"pointer"} color={likedMovies.includes(card.id)? 'red' : 'white'}/>
+                    <div className="icon-button" onClick={() => toggleLike(card)}>
+                      <AiFillHeart size={25} cursor={"pointer"} color={likedMovies.some((item) => item.id === card.id)? 'red' : 'white'}/>
                     </div>
                     <div className="icon-button">
                       <FaComment size={20} color="white" />
