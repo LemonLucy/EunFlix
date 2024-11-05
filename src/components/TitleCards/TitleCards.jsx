@@ -3,12 +3,22 @@ import { useRef,useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { AiFillHeart } from 'react-icons/ai';
 import useWishlist from '../../hooks/useWishlist';
+import MovieModal from './MovieModal.jsx';
+import { useDisclosure } from '@chakra-ui/react';
 
 const TitleCards = ({title, filters= {}}) => {
 
   const cardsRef =useRef();
   const [apiData, setApiData]=useState([])
   const [wishlist, toggleWishlist] = useWishlist();
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const openModal = (movie) => {
+    console.log("Movie selected:", movie);
+    setSelectedMovie(movie);
+    onOpen(true);
+  }
 
   const options = {
       method: 'GET',
@@ -66,7 +76,7 @@ const TitleCards = ({title, filters= {}}) => {
           {apiData.length > 0 ? (
             apiData.map((card) => (
               <div className="titlecard" key={card.id}>
-                <div className="image-container">
+                <div className="image-container" onClick={() => openModal(card)}>
                 <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
                   <div className="overlay">
                     <div className="icon-button" onClick={() => toggleWishlist(card)}>
@@ -83,6 +93,7 @@ const TitleCards = ({title, filters= {}}) => {
         </div>
         <button onClick={scrollRight} className="scroll-button">{">"}</button>
       </div>
+      {selectedMovie && <MovieModal movie={selectedMovie} isOpen={isOpen} onClose={onClose} />}
     </div>
   );
 };
