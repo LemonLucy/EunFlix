@@ -4,6 +4,7 @@ import LoginWrapper from "./pages/Login/LoginWrapper"
 import store from "./store";
 import { Provider } from 'react-redux';
 import PrivateRoute from "./components/Auth/PrivateRoute";
+import PublicRoute from "./components/Auth/PublicRoute";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { loginSuccess,setEmail } from "./store/actions/authActions";
@@ -35,7 +36,7 @@ const App = () => {
     <Provider store={store}>
       <Routes>
         <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
-        <Route path='/login' element={<LoginWrapper/>} />
+        <Route path='/login' element={<PublicRoute><LoginWrapper/></PublicRoute>} />
         <Route path='/popular' element={<PrivateRoute><Popular /></PrivateRoute>} />
         <Route path='/search' element={<PrivateRoute><Search /></PrivateRoute>} />
         <Route path='/wishlist' element={<PrivateRoute><WishList /></PrivateRoute>} />
