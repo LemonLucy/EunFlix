@@ -1,38 +1,28 @@
-// Register.js
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { setEmail, setPassword, setError } from '../../store/actions/authActions';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setEmail, setPassword } from '../../store/actions/authActions';
+import useRegister from '../../hooks/useRegister.js'; // Import the custom hook
 import '../../pages/Login/Login.css';
+
 const Register = ({ toggleCard }) => {
   const dispatch = useDispatch();
   const { email, password, error } = useSelector((state) => state.auth);
+  const { register } = useRegister(); // Use the custom hook
 
   const onSubmit = () => {
-    if (!email) {
-      dispatch(setError("Email is required"));
-      return;
+    register(email, password); // Call the register function from the hook
+    if (!error) {
+      toggleCard(); // If no error, toggle to login card
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      dispatch(setError("Invalid email format"));
-      return;
-    }
-    if (password.length < 6) {
-      dispatch(setError("Password must be at least 6 characters"));
-      return;
-    }
-
-    localStorage.setItem('user', JSON.stringify({ email, password }));
-    alert("Account created successfully. Please log in.");
-    toggleCard();
   };
 
   useEffect(() => {
     if (error) {
       alert(error);
-      dispatch(setError(null));
+      // Dispatching to set error to null is handled in useRegister
     }
-  }, [error, dispatch]);
+  }, [error]);
 
   return (
     <div className="custom-container">
