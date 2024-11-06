@@ -4,15 +4,19 @@ import { AiFillHeart } from 'react-icons/ai';
 import MovieModal from '../../components/TitleCards/MovieModal'; // Import MovieModal
 import { useDisclosure } from '@chakra-ui/react';
 import logo from '../../assets/logo.png'; // Ensure logo path is correct
+import { useNavigate } from 'react-router-dom';
+import useWishlist from '../../hooks/useWishlist';
 
 const Popular = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cursor, setCursor] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [selectedMovie, setSelectedMovie] = useState(null); // State for the selected movie
-  const { isOpen, onOpen, onClose } = useDisclosure(); // Chakra UI modal controls
+  const [cursor, setCursor] = useState(1);
+  const [selectedMovie, setSelectedMovie] = useState(null); 
+  const { isOpen, onOpen, onClose } = useDisclosure(); 
+  const [wishlist, toggleWishlist] = useWishlist();
+  const navigate=useNavigate();
 
   const options = {
     method: 'GET',
@@ -55,12 +59,6 @@ const Popular = () => {
     fetchData(cursor);
   }, [cursor]);
 
-  const loadMore = () => {
-    if (!loading && hasMore) {
-      setCursor((prev) => prev + 1);
-    }
-  };
-
   const pageSize = 10; 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(data.length / pageSize);
@@ -90,13 +88,13 @@ const Popular = () => {
               <div className="image-container" onClick={() => openModal(movie)}>
                 <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt={movie.title} />
                 <p>{movie.title}</p>
-              </div>
-              <div className="overlay">
-                <div className="icon-button" onClick={(e) => { 
-                  e.stopPropagation(); // Prevents modal opening when heart is clicked
-                  // Implement wishlist toggle if necessary
-                }}>
-                  <AiFillHeart size={25} color="red" />
+                <div className="overlay">
+                  <div className="icon-button" onClick={(e) => { 
+                    e.stopPropagation(); // Prevents modal opening when heart is clicked
+                    toggleWishlist(movie);
+                  }}>
+                    <AiFillHeart size={25} cursor={"pointer"} color={wishlist.some((item) => item.id === movie.id)? 'red' : 'white'}/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -121,7 +119,8 @@ const Popular = () => {
 
       {/* MovieModal for displaying movie details */}
       {selectedMovie && (
-        <MovieModal movie={selectedMovie} isOpen={isOpen} onClose={onClose} />
+        <MovieModal movie={selectedMovie} isOpen={isOpen} onClose={onClose} isLiked={wishlist.some((item) => item.id === selectedMovie.id)}
+        toggleWishlist={toggleWishlist}/>
       )}
     </div>
   );
