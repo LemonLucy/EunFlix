@@ -86,7 +86,7 @@
 .auth-title {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #3c2f2f;
   margin-bottom: 20px;
 }
 
@@ -94,17 +94,17 @@
   width: 100%;
   padding: 15px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid #a68064;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: #3c2f2f;
 }
 
 .auth-button {
   width: 100%;
   padding: 12px;
   margin-top: 20px;
-  background-color: black;
-  color: #fff;
+  background-color: #a68064;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -112,12 +112,12 @@
 }
 
 .auth-button:hover {
-  background-color: black;
+  background-color: #3c2f2f;
 }
 
 .auth-link {
   margin-top: 15px;
-  color: black;
+  color: #3c2f2f;
   cursor: pointer;
 }
 
