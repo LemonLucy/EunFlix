@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import {setError, loginSuccess } from '../../store/actions/authActions';
-import useLocalStorage from '../../hooks/useLocalStorage';
+import {setError, loginSuccess} from '../store/actions/authActions';
+import useLocalStorage from './useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 import useShowToast from './useShowToast';
 
