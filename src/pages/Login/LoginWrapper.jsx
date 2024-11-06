@@ -1,25 +1,24 @@
-// LoginWrapper.js
 import { useState } from 'react';
 import Login from '../../components/Auth/Login';
 import Register from '../../components/Auth/Register';
-import '../../pages/Login/Login.css';
+import './Login.css';
 
 const LoginWrapper = () => {
-  const [isLoginVisible, setIsLoginVisible] = useState(true);
-  const [animationClass, setAnimationClass] = useState('slide-in');
+  const [isLoginFocused, setIsLoginFocused] = useState(true);
 
   const toggleCard = () => {
-    setAnimationClass('slide-out'); // 기존 화면 슬라이드 아웃
-    setTimeout(() => {
-      setIsLoginVisible(!isLoginVisible); // 화면 전환
-      setAnimationClass('slide-in'); // 새로운 화면 슬라이드 인
-    }, 400); // 애니메이션 시간과 맞춤
+    setIsLoginFocused((prev) => !prev);
   };
 
   return (
     <div className="custom-bg-image">
-      <div className={`custom-container ${animationClass}`}>
-        {isLoginVisible ? <Login toggleCard={toggleCard} /> : <Register toggleCard={toggleCard} />}
+      <div className={`form-wrapper ${isLoginFocused ? 'focus-login' : 'focus-register'}`}>
+        <div className="form-container login-form">
+          <Login toggleCard={toggleCard} />
+        </div>
+        <div className="form-container register-form">
+          <Register toggleCard={toggleCard} />
+        </div>
       </div>
     </div>
   );

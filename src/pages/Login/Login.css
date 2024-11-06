@@ -1,147 +1,126 @@
-/* 기본 애니메이션 */
-@keyframes fade-slide-in {
-  0% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fade-slide-out {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-}
-/* 전체 컨테이너 */
+/* 전체 배경 스타일 */
 .custom-bg-image {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('/public/background_banner.jpg');
-  background-size: cover;
-  background-position: center;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: -1;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
 }
 
-.custom-container {
-  background-color: white;
-  padding: 40px;
+/* 폼을 담고 있는 래퍼 */
+.form-wrapper {
+  background-color: rgba(0, 0, 0, 0.7);;
+  background-image: url('../../../public/background_banner.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
   width: 100%;
-  max-width: 400px;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.custom-container.slide-in {
-  animation: fade-slide-in 0.4s ease forwards;
-}
-
-.custom-container.slide-out {
-  animation: fade-slide-out 0.4s ease forwards;
-}
-
-/* 제목 */
-.custom-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #222;
-  margin-bottom: 1.5rem;
-}
-
-/* 입력 필드 */
-.custom-input {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin: 1rem 0;
-  font-size: 1rem;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.custom-input:focus {
-  border-color: #e50914;
-  outline: none;
-}
-
-/* 체크박스 */
-.custom-checkbox-container {
+  height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  transition: all 0.8s ease-in-out;
+  overflow: hidden;
 }
 
-.custom-checkbox {
-  margin-right: 0.5rem;
+/* 로그인 폼 및 회원가입 폼의 위치 지정 */
+.login-form,
+.register-form {
+  position: absolute;
+  width: 40%;
+  height: 55%;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.8s ease-in-out;
 }
 
-.custom-checkbox-label {
-  color: #222;
+/* 로그인 폼 스타일 */
+.login-form {
+  z-index: 1;
+  transform: scale(0.9) translateX(-40%);
+  opacity: 0.8;
 }
 
-/* 버튼 스타일 */
-.custom-button {
-  background-color: #e50914;
-  color: white;
-  border: none;
+/* 회원가입 폼 스타일 */
+.register-form {
+  z-index: 2;
+  transform: scale(1) translateX(0);
+}
+
+/* 로그인에 포커스가 있을 때 */
+.form-wrapper.focus-login .login-form {
+  z-index: 2;
+  transform: scale(1) translateX(0);
+  opacity: 1;
+}
+
+.form-wrapper.focus-login .register-form {
+  z-index: 1;
+  transform: scale(0.9) translateX(40%);
+  opacity: 0.8;
+}
+
+/* 회원가입에 포커스가 있을 때 */
+.form-wrapper.focus-register .register-form {
+  z-index: 2;
+  transform: scale(1) translateX(0);
+  opacity: 1;
+}
+
+.form-wrapper.focus-register .login-form {
+  z-index: 1;
+  transform: scale(0.9) translateX(-40%);
+  opacity: 0.8;
+}
+
+/* 공통 스타일 */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.auth-button {
   width: 100%;
   padding: 12px;
-  font-size: 1rem;
-  font-weight: bold;
+  margin-top: 20px;
+  background-color: black;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-.custom-button:hover {
-  background-color: #b20710;
+.auth-button:hover {
+  background-color: black;
 }
 
-.custom-button:active {
-  background-color: #8a060b;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
-}
-
-/* 계정 전환 링크 */
-.custom-link {
-  color: #e50914;
-  font-weight: bold;
+.auth-link {
+  margin-top: 15px;
+  color: black;
   cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
 }
 
-.custom-link:hover {
-  color: #b20710;
-}
-
-.custom-link:active {
-  color: #8a060b;
-}
-
-/* 에러 메시지 */
-.custom-error-message {
-  color: #b20710;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+.auth-link b {
+  text-decoration: underline;
 }
