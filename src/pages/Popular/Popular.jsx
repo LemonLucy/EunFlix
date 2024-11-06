@@ -9,10 +9,10 @@ import useWishlist from '../../hooks/useWishlist';
 
 const Popular = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [hasMore, setHasMore] = useState(true);
-  const [cursor, setCursor] = useState(1);
+  const [, setLoading] = useState(true);
+  const [, setError] = useState(null);
+  const [, setHasMore] = useState(true);
+  const [cursor, ] = useState(1);
   const [selectedMovie, setSelectedMovie] = useState(null); 
   const { isOpen, onOpen, onClose } = useDisclosure(); 
   const [wishlist, toggleWishlist] = useWishlist();
