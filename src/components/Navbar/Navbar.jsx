@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../store/actions/authActions'
 
-
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,8 +15,6 @@ const Navbar = () => {
     const handleLogout = () => {
         // Redux 상태와 localStorage에서 사용자 정보 제거
         dispatch(logout());
-        localStorage.removeItem('user-info');
-        localStorage.removeItem('isAuthenticated');
         navigate('/login'); // 로그인 페이지로 리디렉션
       };
 
@@ -35,7 +32,6 @@ const Navbar = () => {
             </div>
             <div className='navbar-right'>
                 <img src={search_icon} alt="" className='icons'/>
-                <p>Children</p>
                 <img src={bell_icon} alt="" className='icons'/>
                 <div className='navbar-profile'>
                     <img src={profile_img} alt="" className='profile' />

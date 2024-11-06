@@ -22,9 +22,11 @@ export const setEmail = (email) => ({
   };
   
   export const logout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('user-info'); // 필요 시 유저 정보도 삭제
-    return {
-      type: 'LOGOUT',
+    return (dispatch) => {
+      localStorage.setItem('isAuthenticated', false); // 값을 false로 설정하여 상태 유지
+      localStorage.removeItem('user-info'); // 필요 시 유저 정보도 삭제
+      dispatch({
+        type: 'LOGOUT_SUCCESS',
+      });
     };
   };

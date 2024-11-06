@@ -22,6 +22,15 @@ function useLocalStorage(key) {
     }
   };
 
+  const getValue = () => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : undefined;
+    } catch (error) {
+      console.error("Error getting item from localStorage", error);
+    }
+  };
+
   // remove 메서드: 로컬 스토리지에서 데이터 삭제
   const removeValue = () => {
     try {
@@ -31,7 +40,7 @@ function useLocalStorage(key) {
     }
   };
 
-  return [storedValue, setValue, removeValue];
+  return [storedValue, setValue,getValue, removeValue];
 }
 
 export default useLocalStorage;

@@ -1,15 +1,15 @@
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { Spinner } from '@chakra-ui/react';
 
 const PrivateRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  // if (isAuthenticated === null || isAuthenticated === undefined) {
-  //   return <div>Loading...</div>; // 로딩 화면 표시
-  // }
-
+  if (isAuthenticated === null || isAuthenticated === undefined) {
+    return <Spinner />; // 로딩 화면 표시
+  }
   return isAuthenticated ? children : <Navigate to="/login" />;
-};
+  };
 
 
 PrivateRoute.propTypes = {

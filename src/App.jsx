@@ -35,7 +35,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Routes>
-        <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path='/' element={<PrivateRoute><Home/></PrivateRoute>} />
         <Route path='/login' element={<PublicRoute><LoginWrapper/></PublicRoute>} />
         <Route path='/popular' element={<PrivateRoute><Popular /></PrivateRoute>} />
         <Route path='/search' element={<PrivateRoute><Search /></PrivateRoute>} />

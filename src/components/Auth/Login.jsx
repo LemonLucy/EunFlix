@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword } from '../../store/actions/authActions';
 import useLogin from '../../hooks/useLogin';
 import '../../pages/Login/Login.css'; 
+import { Button  } from '@chakra-ui/react';
 
 const Login = ({ toggleCard }) => {
   const dispatch = useDispatch();
@@ -31,7 +32,16 @@ const Login = ({ toggleCard }) => {
         onChange={(e) => dispatch(setPassword(e.target.value))}
       />
       {error && <p className="login-error-message">{error}</p>}
-      <button className="auth-button" onClick={onSubmit}>Log In</button>
+      
+      
+        <Button
+          className="auth-button"
+          onClick={onSubmit}
+          colorScheme="#a68064"
+        >
+          Log In
+        </Button>
+      
       <p className="auth-link" onClick={toggleCard}>
         Dont have an account? <b>Sign up</b>
       </p>
