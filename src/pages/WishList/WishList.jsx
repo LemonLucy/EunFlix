@@ -48,7 +48,7 @@ const WishList = () => {
                     e.stopPropagation(); // Prevents modal opening when heart is clicked
                     toggleWishlist(movie);
                   }}>
-                    <AiFillHeart size={25} color="red" /> {/* Always red since it's in the wishlist */}
+                    <AiFillHeart size={25} color="red" />
                   </div>
                 </div>
                 <p>{movie.title}</p>

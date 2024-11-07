@@ -6,9 +6,24 @@ import info_icon from '../../assets/info_icon.png';
 import play_icon from '../../assets/play_icon.png';
 import TitleCards from '../../components/TitleCards/TitleCards';
 import Footer from '../../components/Footer/Footer';
+import  { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 const Home = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
+    <>
+    {isAuthenticated ?(
     <div className="home">
       <Navbar />
       <div className="hero">
@@ -59,7 +74,10 @@ const Home = () => {
         />
       </div>
       <Footer />
-    </div>
+    </div>):(<div>Loading...</div>
+      )
+  }
+  </>
   );
 };
 

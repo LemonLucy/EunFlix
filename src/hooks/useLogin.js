@@ -8,7 +8,6 @@ const useLogin = () => {
   const dispatch = useDispatch();
   const showToast=useShowToast();
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useLocalStorage('isAuthenticated');
 
   const [storedUser] = useLocalStorage('user');
 
@@ -22,11 +21,8 @@ const useLogin = () => {
 
         if (storedUser && email === storedUser.email && password === storedUser.password) {
             dispatch(loginSuccess());
-            localStorage.setIsAuthenticated(true);
+            localStorage.setItem('isAuthenticated', JSON.stringify(true));
             await showToast("Success","Login successful!","success");
-            console.log('isAuthenticated:', isAuthenticated);
-
-            console.log("logged in")
             navigate('/')
         } else {
             dispatch(setError("Invalid email or password"));
@@ -37,7 +33,7 @@ const useLogin = () => {
     } 
 };
 
-  return { login,isAuthenticated };
+  return { login };
 };
 
 export default useLogin;

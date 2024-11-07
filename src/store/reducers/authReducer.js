@@ -20,8 +20,9 @@ const initialState = {
         return { ...state, isAuthenticated: true, error: '' };
       case 'SET_LOADING':
         return { ...state, isLoading: action.payload };
-      case 'LOGOUT':
+      case 'LOGOUT_SUCCESS':
         localStorage.setItem('isAuthenticated',false);
+        localStorage.removeItem('user-info');
         return { ...state, isAuthenticated: false };
       default:
         return state;

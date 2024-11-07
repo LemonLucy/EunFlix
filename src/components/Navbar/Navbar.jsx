@@ -4,19 +4,24 @@ import search_icon from '../../assets/search_icon.svg'
 import bell_icon from '../../assets/bell_icon.svg'
 import profile_img from '../../assets/profile_img.png'
 import caret_icon from '../../assets/caret_icon.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../store/actions/authActions'
+import useShowToast from '../../hooks/useShowToast'
 
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
-    const handleLogout = () => {
-        // Redux 상태와 localStorage에서 사용자 정보 제거
+    //const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const showToast=useShowToast();
+
+    const handleLogout = async() => {
         dispatch(logout());
-        navigate('/login'); // 로그인 페이지로 리디렉션
+        localStorage.setItem('isAuthenticated',JSON.stringify(false))
+        await showToast("Success","Logout successful!","success");
+        navigate('/login');
       };
+
 
   return (
     <>
