@@ -3,13 +3,9 @@ import {Routes,Route } from "react-router-dom"
 import LoginWrapper from "./pages/Login/LoginWrapper"
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import PublicRoute from "./components/Auth/PublicRoute";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { loginSuccess,setEmail } from "./store/actions/authActions";
 import Popular from "./pages/Popular/Popular";
 import Search from "./pages/Search/Search";
 import WishList from "./pages/WishList/WishList";
-import { setWishlist } from "./store/slices/wishlistSlice";
 
 const App = () => {
 

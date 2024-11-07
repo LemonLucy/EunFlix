@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { setError, loginSuccess, setEmail, setPassword, registerSuccess } from '../store/actions/authActions';
+import { setError, registerSuccess } from '../store/actions/authActions';
 import useLocalStorage from './useLocalStorage';
 import useShowToast from './useShowToast';
 
 const useRegister = (toggleCard) => {
   const dispatch = useDispatch();
-  const [storedUsers, setStoredUsers] = useLocalStorage('users');
+  const [storedUsers] = useLocalStorage('users');
   const showToast=useShowToast();
 
   const register = (email, password) => {
@@ -35,8 +35,6 @@ const useRegister = (toggleCard) => {
 
     // 새로운 사용자 추가 및 저장
     const newUser = { email, password };
-    const updatedUsers = [...existingUsers, newUser];
-    setStoredUsers(updatedUsers); // 로컬 스토리지에 배열 형태로 저장
     dispatch(registerSuccess(newUser));
     showToast("Success", "Account created successfully.", "success");
     toggleCard();
