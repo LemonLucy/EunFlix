@@ -25,7 +25,6 @@ const Login = ({ toggleCard }) => {
         placeholder="Email"
         value={email}
         onChange={(e) => {
-          //console.log("Email onChange:", e.target.value); // 이메일 입력 확인
           dispatch(setEmail(e.target.value));
         }}
       />
@@ -35,9 +34,7 @@ const Login = ({ toggleCard }) => {
         placeholder="Password"
         value={password}
         onChange={(e) => {
-          //console.log("Password onChange:", e.target.value); // 패스워드 입력 확인
           dispatch(setPassword(e.target.value));
-          console.log(password); // 패스워드 입력 확인
 
         }}
       />

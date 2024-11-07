@@ -5,7 +5,7 @@ import useShowToast from './useShowToast';
 
 const useRegister = (toggleCard) => {
   const dispatch = useDispatch();
-  const [storedUser, setStoredUser] = useLocalStorage('user');
+  const [storedUsers, setStoredUsers] = useLocalStorage('users');
   const showToast=useShowToast();
 
   const register = (email, password) => {
@@ -23,18 +23,22 @@ const useRegister = (toggleCard) => {
       return;
     }
 
-    // Check if the user already exists
-    if (storedUser && storedUser.email === email) {
+    // 기존 사용자 배열에서 중복 이메일 확인
+    const existingUsers = Array.isArray(storedUsers) ? storedUsers : [];
+    const isUserExists = existingUsers.some((user) => user.email === email);
+
+    if (isUserExists) {
       dispatch(setError("User already exists"));
-      showToast("Error","User already exists","error");
+      showToast("Error", "User already exists", "error");
       return;
     }
 
-    const user = { email, password };
-    setStoredUser(user);
-    console.log(storedUser);
-    dispatch(registerSuccess(user));
-    showToast("Success","Account created successfully. ","success");
+    // 새로운 사용자 추가 및 저장
+    const newUser = { email, password };
+    const updatedUsers = [...existingUsers, newUser];
+    setStoredUsers(updatedUsers); // 로컬 스토리지에 배열 형태로 저장
+    dispatch(registerSuccess(newUser));
+    showToast("Success", "Account created successfully.", "success");
     toggleCard();
   };
 

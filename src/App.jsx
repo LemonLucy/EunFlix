@@ -1,8 +1,6 @@
 import Home from "./pages/Home/Home"
 import {Routes,Route } from "react-router-dom"
 import LoginWrapper from "./pages/Login/LoginWrapper"
-import store from "./store";
-import { Provider } from 'react-redux';
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import PublicRoute from "./components/Auth/PublicRoute";
 import { useDispatch } from "react-redux";
@@ -14,26 +12,9 @@ import WishList from "./pages/WishList/WishList";
 import { setWishlist } from "./store/slices/wishlistSlice";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    try {
-      const isAuthenticated = JSON.parse(localStorage.getItem('isLoggedIn'));
-      const storedUser = JSON.parse(localStorage.getItem('user-info'));
-      const savedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  
-      if (isAuthenticated && storedUser) {
-        dispatch(loginSuccess());
-        dispatch(setEmail(storedUser.email)); 
-        dispatch(setWishlist(savedWishlist));
-      }
-    } catch (error) {
-      console.error("Failed to parse localStorage data:", error);
-    }
-  }, [dispatch]);
 
   return (
-    <Provider store={store}>
+    //<Provider store={store}>
       <Routes>
         <Route path='/' element={<PrivateRoute><Home/></PrivateRoute>} />
         <Route path='/login' element={<PublicRoute><LoginWrapper/></PublicRoute>} />
@@ -41,7 +22,7 @@ const App = () => {
         <Route path='/search' element={<PrivateRoute><Search /></PrivateRoute>} />
         <Route path='/wishlist' element={<PrivateRoute><WishList /></PrivateRoute>} />
       </Routes>
-    </Provider>
+    //</Provider>
     
   )
 }

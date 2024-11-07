@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const PublicRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  console.log(isAuthenticated)
 
   if (isAuthenticated) {
     // 로그인된 상태이면 Home 페이지로 리다이렉트
