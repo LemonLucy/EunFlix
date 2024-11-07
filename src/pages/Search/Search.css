@@ -66,3 +66,47 @@
     color: #333;
   }
   
+  @media (max-width: 768px) {
+    .filters {
+      flex-direction: row;
+      gap: 15px;
+    }
+  
+    .filters select,
+    .filters input,
+    .filters button {
+      width: 100%; /* Make each filter element take the full width */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .search-page h1 {
+      font-size: 1.5rem;
+    }
+    
+    .filters select,
+    .filters input {
+      font-size: 0.9rem;
+    }
+  
+    .filters button {
+      font-size: 0.9rem;
+      padding: 10px; /* Adjust padding for smaller screens */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .movie-card {
+      width: calc(50% - 10px); /* 2 columns on tablets */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .movie-card {
+      width: 100%; /* 1 column on mobile */
+    }
+  
+    .movie-card p {
+      font-size: 0.9rem;
+    }
+  }

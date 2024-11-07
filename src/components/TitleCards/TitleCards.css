@@ -20,16 +20,40 @@
     justify-content: center;
   }
 
+  .titlecard-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 기본 5 items per row */
+    gap: 10px; /* 아이템 사이 간격 */
+    margin-top: 20px;
+    padding: 0 100px;
+  }
+  
   .titlecard {
     position: relative;
-    width: 200px;
-    margin: 10px;
+    min-width: 150px;
+    max-width: 150px;
+    margin: 10px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
   }
 
   .titlecard img {
     width: 100%;
     display: block;
+    height: 200px;
+    object-fit: cover;
   }
+
+  .titlecard p {
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+    color: white;
+  }
+
   .overlay {
     position: absolute;
     top: 0;
@@ -83,37 +107,35 @@
     display: none;
   }
   
-  /* 개별 카드 스타일 */
-  .titlecard {
-    min-width: 150px;
-    max-width: 150px;
-    border-radius: 8px;
-    overflow: hidden;
-    height: auto;
-    cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
-
-  }
-  
-  .titlecard img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .titlecard p {
-    padding: 10px;
-    text-align: center;
-    font-size: 1rem;
-    color: white;
-  }
   
   /* 호버 시 확대 효과 */
   .titlecard:hover {
     transform: scale(1.1);
   }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 8px;
+  }
   
+  .pagination button {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .pagination button.active {
+    background: #555;
+  }
+
+  
+    
   /* 반응형 조정 */
   @media (max-width: 768px) {
     .titlecard {
@@ -129,31 +151,11 @@
     .titlecard p {
       font-size: 0.9rem;
     }
-  }
-  
-  .titlecard-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 items per row */
-    gap: 5px; /* Spacing between items */
-    margin-top: 20px;
-    padding: 0 100px;
-  }
-
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-  
-  .pagination button {
-    background: #333;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    margin: 0 8px; /* Add more space between buttons */
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    .titlecard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 5 items per row */
+      gap: 5px; /* Spacing between items */
+      margin-top: 20px;
+      padding: 0 100px;
+    }
   }

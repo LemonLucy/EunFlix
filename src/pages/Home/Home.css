@@ -1,5 +1,6 @@
 /* 전체 홈 스타일 */
 .home {
+  padding-top: 100px;
     width: 100%;
     min-height: 100vh; /* 화면 전체를 최소 높이로 채움 */
     height: 100%;
@@ -63,7 +64,7 @@
   
   .home-card {
     flex: 0 0 auto; /* 고정된 너비 */
-    width: 300px; /* 카드의 너비 조정 */
+    width: 900px; /* 카드의 너비 조정 */
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
@@ -128,4 +129,66 @@
   .dark-btn:hover {
     background-color: rgba(255, 255, 255, 0.2);
     color: #e5e5e5;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-caption {
+      max-width: 80%;
+    }
+  
+    .banner-img {
+      height: 500px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero {
+      height: 60vh;
+      padding: 5%;
+    }
+  
+    .hero-caption {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .home-card {
+      width: 300px;
+    }
+  
+    .banner-img {
+      height: 400px;
+    }
+  
+    .hero-btns {
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero-caption p {
+      font-size: 0.9rem;
+    }
+  
+    .home-btn {
+      font-size: 0.9rem;
+      padding: 10px 20px;
+    }
+
+    .hero-btns {
+      flex-direction: row;
+    }
+  
+    .banner-img {
+      height: 300px;
+    }
+    
+    .more-cards {
+      gap: 20px;
+    }
+  
+    .home-card {
+      width: 200px;
+    }
   }
