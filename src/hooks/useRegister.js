@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { setError } from '../store/actions/authActions';
+import { setError, loginSuccess, setEmail, setPassword, registerSuccess } from '../store/actions/authActions';
 import useLocalStorage from './useLocalStorage';
 import useShowToast from './useShowToast';
 
-const useRegister = () => {
+const useRegister = (toggleCard) => {
   const dispatch = useDispatch();
   const [storedUser, setStoredUser] = useLocalStorage('user');
   const showToast=useShowToast();
@@ -30,9 +30,12 @@ const useRegister = () => {
       return;
     }
 
-    // Save user information in local storage
-    setStoredUser({ email, password });
-    showToast("Success","Account created successfully. Please log in.","success");
+    const user = { email, password };
+    setStoredUser(user);
+    console.log(storedUser);
+    dispatch(registerSuccess(user));
+    showToast("Success","Account created successfully. ","success");
+    toggleCard();
   };
 
   return { register };

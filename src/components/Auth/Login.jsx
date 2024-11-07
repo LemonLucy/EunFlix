@@ -11,6 +11,8 @@ const Login = ({ toggleCard }) => {
   const { login } = useLogin();
 
   const onSubmit = () => {
+    console.log("Email:", email); // email 값 확인
+    console.log("Password:", password);
     login(email, password);
   };
 
@@ -22,14 +24,22 @@ const Login = ({ toggleCard }) => {
         type="email"
         placeholder="Email"
         value={email}
-        onChange={(e) => dispatch(setEmail(e.target.value))}
+        onChange={(e) => {
+          //console.log("Email onChange:", e.target.value); // 이메일 입력 확인
+          dispatch(setEmail(e.target.value));
+        }}
       />
       <input
         className="auth-input"
         type="password"
         placeholder="Password"
         value={password}
-        onChange={(e) => dispatch(setPassword(e.target.value))}
+        onChange={(e) => {
+          //console.log("Password onChange:", e.target.value); // 패스워드 입력 확인
+          dispatch(setPassword(e.target.value));
+          console.log(password); // 패스워드 입력 확인
+
+        }}
       />
       {error && <p className="login-error-message">{error}</p>}
       

@@ -1,10 +1,8 @@
 // 로그인/회원가입 상태(email password isLoggedIn error) 관리
 const initialState = {
-    email: '',
-    password: '',
-    isAuthenticated: JSON.parse(localStorage.getItem('isAuthenticated')) || false,
-    error: '',
-    isLoading: false,
+  isAuthenticated: false,
+  error: '',
+  user: null,
   };
   
   const authReducer = (state = initialState, action) => {
@@ -15,15 +13,21 @@ const initialState = {
         return { ...state, password: action.payload };
       case 'SET_ERROR':
         return { ...state, error: action.payload };
+        case 'REGISTER_SUCCESS':
+            return { ...state, user: action.payload, error: '' };
       case 'LOGIN_SUCCESS':
-        localStorage.setItem('isAuthenticated', true);
-        return { ...state, isAuthenticated: true, error: '' };
+        return { ...state, isAuthenticated: true,user: action.payload, error: '' };
       case 'SET_LOADING':
         return { ...state, isLoading: action.payload };
       case 'LOGOUT_SUCCESS':
-        localStorage.setItem('isAuthenticated',false);
-        localStorage.removeItem('user-info');
-        return { ...state, isAuthenticated: false };
+        return { 
+          ...state,
+          isAuthenticated: false,
+          user: null,
+          email: '', 
+          password: '',
+          error: ''
+         };
       default:
         return state;
     }

@@ -7,7 +7,7 @@ import '../../pages/Login/Login.css'; // 스타일 적용
 const Register = ({ toggleCard }) => {
   const dispatch = useDispatch();
   const { email, password, error } = useSelector((state) => state.auth);
-  const { register } = useRegister();
+  const { register } = useRegister(toggleCard);
 
   const onSubmit = () => {
     register(email, password);

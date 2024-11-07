@@ -12,7 +12,6 @@ import useShowToast from '../../hooks/useShowToast'
 const Navbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    //const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const showToast=useShowToast();
 
     const handleLogout = async() => {
