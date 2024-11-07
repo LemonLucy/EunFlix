@@ -6,6 +6,7 @@ import PublicRoute from "./components/Auth/PublicRoute";
 import Popular from "./pages/Popular/Popular";
 import Search from "./pages/Search/Search";
 import WishList from "./pages/WishList/WishList";
+import './index.css';
 
 const App = () => {
 
