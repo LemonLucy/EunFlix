@@ -5,9 +5,9 @@
   box-sizing: border-box;
 }
 body{
-  background: black;
-  color: white;
-  font-family: 'poppins';
+  background: black !important;
+  color: white !important;
+  font-family: 'Poppins', sans-serif !important;
   box-sizing: border-box;
   overflow-x: hidden;
 }
