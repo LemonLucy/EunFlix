@@ -9,13 +9,7 @@ const useLogin = () => {
   const navigate = useNavigate();
   const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 
-  const login = async(email,password) => {
-    console.log("Email in login function:", email); // email 값 확인
-    console.log("Password in login function:", password); // password 값 확인
-    console.log("Stored User in login function:", storedUsers); // storedUser 값 확인
-    console.log("storedUser email : ",storedUsers.email);
-    console.log("storedUser password : ",storedUsers.password);
-
+  const login = async(email,password,rememberMe) => {
     try {
       if (!email || !password) {
         dispatch(setError("Email and password are required"));
@@ -28,6 +22,15 @@ const useLogin = () => {
       if (user) {
         dispatch(loginSuccess(user));
         await showToast("Success", "Login successful!", "success");
+
+        if (rememberMe) {
+          localStorage.setItem('rememberedEmail', email);
+          localStorage.setItem('rememberedPassword', password);
+        } else {
+          localStorage.removeItem('rememberedEmail');
+          localStorage.removeItem('rememberedPassword');
+        }
+        
         navigate('/');
       } else {
         dispatch(setError("Invalid email or password"));

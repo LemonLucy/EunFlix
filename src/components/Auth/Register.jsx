@@ -9,7 +9,7 @@ const Register = ({ toggleCard }) => {
   const dispatch = useDispatch();
   const { email, password, error } = useSelector((state) => state.auth);
   const { register } = useRegister(toggleCard);
-  const [confirmPassword, ] = useState('');
+  const [confirmPassword, setConfirmPassword ] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const onSubmit = () => {
@@ -38,7 +38,7 @@ const Register = ({ toggleCard }) => {
         type="password"
         placeholder="Confirm Password"
         value={confirmPassword}
-        onChange={(e) => dispatch(setPassword(e.target.value))}
+        onChange={(e) => dispatch(setConfirmPassword(e.target.value))}
       />
       <div className="terms-checkbox">
         <input
