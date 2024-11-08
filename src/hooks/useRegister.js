@@ -8,7 +8,7 @@ const useRegister = (toggleCard) => {
   const [storedUsers] = useLocalStorage('users');
   const showToast=useShowToast();
 
-  const register = (email, password) => {
+  const register = (email, password, confirmPassword, termsAccepted) => {
     if (!email) {
       dispatch(setError("Email is required"));
       return;
@@ -20,6 +20,17 @@ const useRegister = (toggleCard) => {
     if (password.length < 6) {
       dispatch(setError("Password must be at least 6 characters"));
       showToast("Error","Password must be at least 6 characters","error");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      dispatch(setError("Passwords do not match"));
+      showToast("Error", "Passwords do not match", "error");
+      return;
+    }
+    if (!termsAccepted) {
+      dispatch(setError("You must accept the Terms and Policy"));
+      showToast("Error", "You must accept the Terms and Policy", "error");
       return;
     }
 
