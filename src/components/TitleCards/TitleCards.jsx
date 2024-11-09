@@ -19,20 +19,50 @@ const TitleCards = ({title, filters= {}}) => {
   const showToast=useShowToast();
 
   const openModal = (movie) => {
-    console.log("Movie selected:", movie);
     setSelectedMovie(movie);
     onOpen(true);
   }
 
   const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Mzk0YzBkNGQ4ZTRlYjRiNjU3MjhlYTlkODNmZjNkOCIsIm5iZiI6MTczMDE4NTY1Ni40NDAxODEsInN1YiI6IjY3MjA2OGU0MjdiZDU3ZDkxZjYzNGRkNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bvDVOGO4YkH4kUgs109IqfGVL1qkTlHo1jxNNAAmmmA'
-      }
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3Mzk0YzBkNGQ4ZTRlYjRiNjU3MjhlYTlkODNmZjNkOCIsIm5iZiI6MTczMDE4NTY1Ni40NDAxODEsInN1YiI6IjY3MjA2OGU0MjdiZDU3ZDkxZjYzNGRkNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.bvDVOGO4YkH4kUgs109IqfGVL1qkTlHo1jxNNAAmmmA'
+    }
+  };
+
+  const setLocalStorageWithExpiry = (key, value, ttl) => {
+    const now = new Date();
+    const item = {
+      value: value,
+      expiry: now.getTime() + ttl
     };
+    localStorage.setItem(key, JSON.stringify(item));
+  };
+
+  const getLocalStorageWithExpiry = (key) => {
+    const itemStr = localStorage.getItem(key);
+    if (!itemStr) {
+      return null;
+    }
+    const item = JSON.parse(itemStr);
+    const now = new Date();
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+    return item.value;
+  };
 
   const fetchMovies = () => {
+    const cachedData = getLocalStorageWithExpiry('movieData');
+    if (cachedData) {
+      setApiData(cachedData);
+      setLoading(false);
+      return;
+    }
+
     const controller = new AbortController();
     const { genre, rating, sortBy, search } = filters|| {};
     let url = `https://api.themoviedb.org/3/discover/movie?language=ko-KR&sort_by=${sortBy}&page=1`;
@@ -67,8 +97,7 @@ const TitleCards = ({title, filters= {}}) => {
           genre_ids: movie.genre_ids,
         }));
         setApiData(movies);
-
-        sessionStorage.setItem('movieData', JSON.stringify(movies));
+        setLocalStorageWithExpiry('movieData', movies, 30 * 60 * 1000);
       })
       .catch((err) => {
         if (err.name === 'AbortError') {
@@ -82,12 +111,12 @@ const TitleCards = ({title, filters= {}}) => {
         setLoading(false);
       });;
 
-      return () => controller.abort();
+      return () => controller;
   };
 
   useEffect(() => {
-    const cleanupFetch = fetchMovies();
-    return () => cleanupFetch();
+    const controller = fetchMovies();
+    return () => controller &&controller.abort();
   }, [filters]);
 
   const scrollLeft = () => {
