@@ -4,7 +4,7 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
   /* 네비게이션 바 */
   .navbar {
     display: flex;
@@ -12,12 +12,22 @@
     align-items: center;
     padding: 15px 30px;
     color: white;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.8);
     position: fixed;
     top: 0;
     z-index: 100;
-    backdrop-filter: blur(10px);
+   
     width : 100%;
+    height: auto;
+  }
+
+  .home-logo {
+    position: relative;
+    top: 0px; /* Adjust if needed to fine-tune positioning */
+    left: 10px; /* Adjust if needed to fine-tune positioning */
+    width: 200px; /* Control the size as needed */
+    height: auto;
+    cursor: pointer;
   }
   
   /* 왼쪽 로고와 메뉴 */

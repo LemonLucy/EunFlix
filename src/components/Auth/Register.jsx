@@ -46,7 +46,7 @@ const Register = ({ toggleCard }) => {
           checked={termsAccepted}
           onChange={(e) => setTermsAccepted(e.target.checked)}
         />
-        <label>I read and accept the Terms and Policy</label>
+        <label style={{ color: '#a68064' }}>I read and accept the Terms and Policy</label>
       </div>
       {error && <p className="login-error-message">{error}</p>}
       <button className="auth-button" onClick={onSubmit}>Sign Up</button>

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { AiFillHeart } from 'react-icons/ai';
 import useWishlist from '../../hooks/useWishlist';
 import MovieModal from './MovieModal.jsx';
-import { useDisclosure } from '@chakra-ui/react';
+import { useDisclosure, Skeleton } from '@chakra-ui/react';
+import useShowToast from '../../hooks/useShowToast.js';
 
 const TitleCards = ({title, filters= {}}) => {
 
@@ -13,6 +14,9 @@ const TitleCards = ({title, filters= {}}) => {
   const [wishlist, toggleWishlist] = useWishlist();
   const [selectedMovie, setSelectedMovie] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const showToast=useShowToast();
 
   const openModal = (movie) => {
     console.log("Movie selected:", movie);
@@ -29,15 +33,26 @@ const TitleCards = ({title, filters= {}}) => {
     };
 
   const fetchMovies = () => {
-    const { genre, rating, sortBy, year } = filters|| {};
+    const { genre, rating, sortBy, search } = filters|| {};
     let url = `https://api.themoviedb.org/3/discover/movie?language=ko-KR&sort_by=${sortBy}&page=1`;
 
     if (genre) url += `&with_genres=${genre}`;
     if (rating) url += `&vote_average.gte=${rating}`;
-    if (year) url += `&primary_release_year=${year}`;
+
+    if (search) {
+      url = `https://api.themoviedb.org/3/search/movie?language=ko-KR&query=${encodeURIComponent(search)}&page=1`;
+    }
+
+    setLoading(true);
+    setError(null);
 
     fetch(url, options)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        }
+        return response.json();
+      })
       .then((response) => {
         const movies = response.results
         .filter((movie) => movie.backdrop_path)
@@ -52,11 +67,17 @@ const TitleCards = ({title, filters= {}}) => {
         }));
         setApiData(movies);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      })
+      .finally(() => {
+        setLoading(false);
+      });;
   };
 
   useEffect(() => {
-    fetchMovies(); // filters가 변경될 때마다 API 호출
+    fetchMovies(); 
   }, [filters]);
 
   const scrollLeft = () => {
@@ -69,26 +90,30 @@ const TitleCards = ({title, filters= {}}) => {
 
   return (
     <div className="titlecards">
-      <h2>{title || "Popular on Netflix"}</h2>
+      <h2>{title || "Popular on EunFlex"}</h2>
       <div className="titlecard-container">
         <button onClick={scrollLeft} className="scroll-button">{"<"}</button>
         <div className="titlecard-list" ref={cardsRef}>
-          {apiData.length > 0 ? (
+        {loading ? (
+            Array.from({ length: 10 }).map((_, index) => (
+              <Skeleton key={index} height="250px" width="100%" borderRadius="md" />
+            ))
+          ) : error ? (
+            showToast("Error", {error}, "error")
+          ) : (
             apiData.map((card) => (
               <div className="titlecard" key={card.id}>
                 <div className="image-container" onClick={() => openModal(card)}>
-                <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
+                  <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
                   <div className="overlay">
                     <div className="icon-button" onClick={() => toggleWishlist(card)}>
-                      <AiFillHeart size={25} cursor={"pointer"} color={wishlist.some((item) => item.id === card.id)? 'red' : 'white'}/>
+                      <AiFillHeart size={25} cursor="pointer" color={wishlist.some((item) => item.id === card.id) ? 'red' : 'white'} />
                     </div>
                   </div>
                   <p>{card.title}</p>
                 </div>
               </div>
             ))
-          ) : (
-            <p>No data available</p>
           )}
         </div>
         <button onClick={scrollRight} className="scroll-button">{">"}</button>

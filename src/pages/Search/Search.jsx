@@ -3,17 +3,25 @@ import {  useState } from 'react';
 import TitleCards from '../../components/TitleCards/TitleCards';
 import logo from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Search = () => {
   const [filters, setFilters] = useState({
     genre: '',
     rating: '',
     sortBy: 'popularity.desc',
-    year: '',
+    search: '',
   });
   const navigate=useNavigate();
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [suggestions, setSuggestions] = useState([]); // Store previous keywords
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  useEffect(() => {
+    // Safely parse the keywords from localStorage, or initialize as an empty array
+    const storedKeywords = JSON.parse(localStorage.getItem('searchKeywords')) || [];
+    setSuggestions(storedKeywords);
+  }, []);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -24,12 +32,32 @@ const Search = () => {
     setCurrentPage(1);
   };
 
+  const handleSearchSubmit = () => {
+    const { search } = filters;
+
+    if (search) {
+      // Retrieve existing search keywords array from localStorage, or initialize an empty array
+      const storedKeywords = JSON.parse(localStorage.getItem('searchKeywords')) || [];
+
+      // Add the new search keyword if it doesn't already exist
+      if (!storedKeywords.includes(search)) {
+        storedKeywords.push(search);
+        // Save the updated array back to localStorage
+        localStorage.setItem('searchKeywords', JSON.stringify(storedKeywords));
+
+      }
+
+      setSuggestions(storedKeywords);
+      setShowSuggestions(false);
+    }
+  };
+
   const resetFilters = () => {
     setFilters({
       genre: '',
       rating: '',
       sortBy: 'popularity.desc',
-      year: '',
+      search: '',
     });
     setCurrentPage(1);
   };
@@ -38,9 +66,21 @@ const Search = () => {
     setCurrentPage(page);
   };
 
+  const handleFocus = () => {
+    setShowSuggestions(true); // Show suggestions when search input is focused
+  };
+
+  const handleSuggestionClick = (keyword) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      search: keyword,
+    }));
+    setShowSuggestions(false); // Hide suggestions after selecting a keyword
+  };
+
   return (
     <div className="search-page">
-      <img src={logo} alt="" onClick={() => navigate('/')} className="logo"  />
+      <img src={logo} alt="" onClick={() => navigate('/')} className="search-logo"  />
       <h1>Movie Search</h1>
 
       {/* Filter UI */}
@@ -67,14 +107,27 @@ const Search = () => {
           <option value="vote_average.desc">Top Rated</option>
         </select>
 
-        <input
-          type="number"
-          name="year"
-          placeholder="Year"
-          value={filters.year}
-          onChange={handleFilterChange}
-        />
-
+        <div className="search-input-wrapper" style={{ position: "relative" }}>
+          <input
+            type="text"
+            name="search"
+            placeholder="Search by word"
+            value={filters.search}
+            onChange={handleFilterChange}
+            onFocus={handleFocus} // Show suggestions on focus
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+          />
+          {showSuggestions &&suggestions && suggestions.length > 0 && (
+              <ul className="suggestions-dropdown">
+                {suggestions.map((keyword, index) => (
+                  <li key={index} onMouseDown={() => handleSuggestionClick(keyword)}>
+                    {keyword}
+                  </li>
+                ))}
+              </ul>
+          )}
+        </div>
+        <button onClick={handleSearchSubmit}>Search</button>
         <button onClick={resetFilters}>Reset</button>
       </div>
 

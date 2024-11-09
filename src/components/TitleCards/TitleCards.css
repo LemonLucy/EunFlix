@@ -1,3 +1,9 @@
+.logo {
+  width: 300px; /* Adjust width to your desired size */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer; /* Make it clickable if it's a navigational element */
+}
+
 /* 전체 타이틀 카드 컨테이너 */
 .titlecards {
   display: block;

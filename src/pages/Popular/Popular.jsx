@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import '../../components/TitleCards/TitleCards.css';
 import { AiFillHeart } from 'react-icons/ai';
 import MovieModal from '../../components/TitleCards/MovieModal'; // Import MovieModal
-import { useDisclosure } from '@chakra-ui/react';
+import { HStack, Skeleton, Stack, useDisclosure } from '@chakra-ui/react';
 import logo from '../../assets/logo.png'; // Ensure logo path is correct
 import { useNavigate } from 'react-router-dom';
 import useWishlist from '../../hooks/useWishlist';
 
 const Popular = () => {
   const [data, setData] = useState([]);
-  const [, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [, setError] = useState(null);
   const [, setHasMore] = useState(true);
   const [cursor, ] = useState(1);
@@ -82,7 +82,13 @@ const Popular = () => {
       <img src={logo} alt="Logo" onClick={() => navigate('/')} className="logo" />
       <h2>Popular on Eunflix</h2>
       <div className="titlecard-grid">
-        {getCurrentPageItems().length > 0 ? (
+        {/* {getCurrentPageItems().length > 0 ? ( */}
+          {loading ? (
+            // Render 10 skeletons while loading
+            Array.from({ length: pageSize }, (_, index) => (
+              <Skeleton key={index} height="250px" width="100%" borderRadius="md" />
+            ))
+          ):(
           getCurrentPageItems().map((movie) => (
             <div className="titlecard" key={movie.id}>
               <div className="image-container" onClick={() => openModal(movie)}>
@@ -99,8 +105,6 @@ const Popular = () => {
               </div>
             </div>
           ))
-        ) : (
-          <p>No movies available.</p>
         )}
       </div>
 

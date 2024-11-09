@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { AiFillHeart } from 'react-icons/ai';
 
 const MovieModal = ({ movie, isOpen, onClose, isLiked, toggleWishlist }) => (
+
   <Modal isCentered onClose={onClose} isOpen={isOpen} size="lg" motionPreset="slideInBottom">
     <ModalOverlay />
     <ModalContent
@@ -28,26 +29,25 @@ const MovieModal = ({ movie, isOpen, onClose, isLiked, toggleWishlist }) => (
       </ModalHeader>
 
       <ModalBody>
-        {/* Full Movie Image */}
-        <Image
-          src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-          alt={movie.title}
-          width="100%"
-          borderRadius="md"
-          mb={4}
-        />
+          <Image
+            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+            alt={movie.title}
+            width="100%"
+            borderRadius="md"
+            mb={4}
+          />
 
         {/* Movie Details */}
-        <Stack spacing={4} color="white">
-          <Text fontWeight="bold" fontSize="lg">Overview:</Text>
-          <Text>{movie?.overview || 'No overview available.'}</Text>
+          <Stack spacing={4} color="white">
+            <Text fontWeight="bold" fontSize="lg">Overview:</Text>
+            <Text>{movie?.overview || 'No overview available.'}</Text>
 
-          <Text fontWeight="bold" fontSize="lg">Release Date:</Text>
-          <Text>{movie?.release_date || 'N/A'}</Text>
+            <Text fontWeight="bold" fontSize="lg">Release Date:</Text>
+            <Text>{movie?.release_date || 'N/A'}</Text>
 
-          <Text fontWeight="bold" fontSize="lg">Rating:</Text>
-          <Text>{movie?.vote_average || 'N/A'}</Text>
-        </Stack>
+            <Text fontWeight="bold" fontSize="lg">Rating:</Text>
+            <Text>{movie?.vote_average || 'N/A'}</Text>
+          </Stack>
       </ModalBody>
 
       <ModalFooter>

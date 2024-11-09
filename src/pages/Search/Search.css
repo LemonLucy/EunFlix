@@ -1,9 +1,33 @@
 /* SearchPage.css */
 .search-page {
-    padding: 20px;
-    max-width: 1200px;
-    margin: auto;
-    color: #6f6e6f;
+  position: relative; /* For absolute positioning of children */
+  padding: 20px; /* Remove padding if any */
+  margin: 20px; /* Remove margin if any */
+}
+
+/* Logo styling for top-left corner */
+.search-logo {
+  position: relative;
+  top: -50px; /* Adjust if needed to fine-tune positioning */
+  left: -50px; /* Adjust if needed to fine-tune positioning */
+  width: 200px; /* Control the size as needed */
+  height: 100px;
+  cursor: pointer;
+}
+
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 300px; /* Adjust this to control the input width */
+    margin: 0; /* Center the input if necessary */
+  }
+  
+  .search-input-wrapper input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
   }
   
   h1 {
@@ -109,4 +133,26 @@
     .movie-card p {
       font-size: 0.9rem;
     }
+  }
+
+  .suggestions-dropdown {
+    position: absolute;
+    top: 100%; /* Position it below the input field */
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 10; /* Ensure it appears above other elements */
+  }
+  
+  .suggestions-dropdown li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .suggestions-dropdown li:hover {
+    background-color: #f0f0f0;
   }

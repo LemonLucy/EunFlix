@@ -27,18 +27,17 @@ const Navbar = () => {
     <>
         <div className='navbar'>
             <div className='navbar-left'>
-                <img src={logo} alt="" onClick={() => navigate('/')} className="logo"  />
+                <img src={logo} alt="" onClick={() => navigate('/')} className="home-logo" />
                 <ul>
-                <li onClick={() => navigate('/')}>Home</li>
                     <li onClick={() => navigate('/popular')}>Popular</li>
                     <li onClick={() => navigate('/wishlist')}>WishList</li>
                     <li onClick={() => navigate('/search')}>Search</li>
                 </ul>
             </div>
             <div className='navbar-right'>
-                <AiFillHeart color='teal' onClick={() => navigate('/wishlist')} size={25} className='icons'/>
-                <HiFire color='teal' onClick={() => navigate('/popular')} size={50} className='icons' />
-                <IoSearch color='teal' onClick={() => navigate('/search')} size={50} className='icons'/>
+                <AiFillHeart color='pink' onClick={() => navigate('/wishlist')} size={25} className='icons'/>
+                <HiFire color='pink' onClick={() => navigate('/popular')} size={50} className='icons' />
+                <IoSearch color='pink' onClick={() => navigate('/search')} size={50} className='icons'/>
                 <div className='navbar-profile'>
                     <img src={profile_img} alt="" className='profile' />
                     <img src={caret_icon} alt="" />
