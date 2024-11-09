@@ -1,5 +1,5 @@
 import './TitleCards.css'
-import { useRef,useEffect, useState } from 'react'
+import React, { useRef,useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { AiFillHeart } from 'react-icons/ai';
 import useWishlist from '../../hooks/useWishlist';
@@ -33,6 +33,7 @@ const TitleCards = ({title, filters= {}}) => {
     };
 
   const fetchMovies = () => {
+    const controller = new AbortController();
     const { genre, rating, sortBy, search } = filters|| {};
     let url = `https://api.themoviedb.org/3/discover/movie?language=ko-KR&sort_by=${sortBy}&page=1`;
 
@@ -46,7 +47,7 @@ const TitleCards = ({title, filters= {}}) => {
     setLoading(true);
     setError(null);
 
-    fetch(url, options)
+    fetch(url, { ...options, signal: controller.signal })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -66,18 +67,27 @@ const TitleCards = ({title, filters= {}}) => {
           genre_ids: movie.genre_ids,
         }));
         setApiData(movies);
+
+        sessionStorage.setItem('movieData', JSON.stringify(movies));
       })
       .catch((err) => {
-        console.error(err);
-        setLoading(false);
+        if (err.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          console.error(err);
+          setError(err);
+        }
       })
       .finally(() => {
         setLoading(false);
       });;
+
+      return () => controller.abort();
   };
 
   useEffect(() => {
-    fetchMovies(); 
+    const cleanupFetch = fetchMovies();
+    return () => cleanupFetch();
   }, [filters]);
 
   const scrollLeft = () => {
@@ -94,9 +104,9 @@ const TitleCards = ({title, filters= {}}) => {
       <div className="titlecard-container">
         <button onClick={scrollLeft} className="scroll-button">{"<"}</button>
         <div className="titlecard-list" ref={cardsRef}>
-        {loading ? (
+        {loading || apiData.length === 0? (
             Array.from({ length: 10 }).map((_, index) => (
-              <Skeleton key={index} height="250px" width="100%" borderRadius="md" />
+              <Skeleton key={index} borderRadius="md" />
             ))
           ) : error ? (
             showToast("Error", {error}, "error")
@@ -120,7 +130,7 @@ const TitleCards = ({title, filters= {}}) => {
       </div>
       {selectedMovie && <MovieModal movie={selectedMovie} isOpen={isOpen} onClose={onClose} isLiked={wishlist.some((item) => item.id === selectedMovie.id)} toggleWishlist={toggleWishlist}/>}
     </div>
-  );
+);
 };
 
 TitleCards.propTypes = {
@@ -128,4 +138,4 @@ TitleCards.propTypes = {
   filters: PropTypes.object.isRequired,
 };
 
-export default TitleCards
+export default React.memo(TitleCards);
