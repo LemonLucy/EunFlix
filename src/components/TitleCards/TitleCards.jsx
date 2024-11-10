@@ -1,5 +1,5 @@
 import './TitleCards.css'
-import React, { useRef,useEffect, useState,  } from 'react'
+import React, { useRef,useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types';
 import { AiFillHeart } from 'react-icons/ai';
 import useWishlist from '../../hooks/useWishlist';
@@ -57,15 +57,14 @@ const TitleCards = ({title, filters= {}}) => {
     return item.value;
   };
 
-  const fetchMovies = () => {
-    const cachedData = getLocalStorageWithExpiry('movieData');
+  const fetchMovies = useCallback(() => {
+    const cachedData = getLocalStorageWithExpiry('moies');
     if (cachedData) {
       setApiData(cachedData);
       setLoading(false);
       return;
     }
 
-    const controller = new AbortController();
     const { genre, rating, sortBy, search } = filters|| {};
     let url = `https://api.themoviedb.org/3/discover/movie?language=ko-KR&sort_by=${sortBy}&page=1`;
 
@@ -79,7 +78,7 @@ const TitleCards = ({title, filters= {}}) => {
     setLoading(true);
     setError(null);
 
-    fetch(url, { ...options, signal: controller.signal })
+    fetch(url, options)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -99,7 +98,7 @@ const TitleCards = ({title, filters= {}}) => {
           genre_ids: movie.genre_ids,
         }));
         setApiData(movies);
-        setLocalStorageWithExpiry('movieData', movies, 30 * 60 * 1000);
+        setLocalStorageWithExpiry('movies', movies, 30 * 60 * 1000);
       })
       .catch((err) => {
         if (err.name === 'AbortError') {
@@ -113,13 +112,11 @@ const TitleCards = ({title, filters= {}}) => {
         setLoading(false);
       });;
 
-      return () => controller;
-  };
+});
 
   useEffect(() => {
-    const controller = fetchMovies();
-    return () => controller &&controller.abort();
-  }, [filters]);
+    fetchMovies(filters); // filters가 변경될 때마다 API 호출
+  }, [JSON.stringify(filters)]);
 
   const scrollLeft = () => {
     cardsRef.current.scrollLeft -= 5 * 200; // 5개의 카드 너비만큼 이동
