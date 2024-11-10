@@ -1,5 +1,4 @@
 import '../../components/TitleCards/TitleCards.css';
-import { AiFillHeart } from 'react-icons/ai';
 import useWishlist from '../../hooks/useWishlist';
 import { useState } from 'react';
 import MovieModal from '../../components//TitleCards/MovieModal'; // Import MovieModal
@@ -7,6 +6,7 @@ import { useDisclosure } from '@chakra-ui/react';
 import logo from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import WishlistItem from './WishlistItem.jsx';
 
 const WishList = () => {
   const navigate = useNavigate();
@@ -44,20 +44,7 @@ const WishList = () => {
       <div className="titlecard-grid">
         {getCurrentPageItems().length > 0 ? (
           getCurrentPageItems().map((movie) => (
-            <div className="titlecard" key={movie.id}>
-              <div className="image-container" onClick={() => openModal(movie)}>
-                <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt="movie" />
-                <div className="overlay">
-                  <div className="icon-button" onClick={(e) => { 
-                    e.stopPropagation(); 
-                    toggleWishlist(movie);
-                  }}>
-                    <AiFillHeart size={25} color="red" />
-                  </div>
-                </div>
-                <p>{movie.title}</p>
-              </div>
-            </div>
+            <WishlistItem key={movie.id} movie={movie} toggleWishlist={toggleWishlist} openModal={openModal} />
           ))
         ) : (
           <p>No movies in your wishlist.</p>
