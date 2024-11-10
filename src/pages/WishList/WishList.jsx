@@ -1,6 +1,6 @@
 import '../../components/TitleCards/TitleCards.css';
 import useWishlist from '../../hooks/useWishlist';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import MovieModal from '../../components//TitleCards/MovieModal'; // Import MovieModal
 import { useDisclosure } from '@chakra-ui/react';
 import logo from '../../assets/logo.png'
@@ -10,7 +10,6 @@ import WishlistItem from './WishlistItem.jsx';
 
 const WishList = () => {
   const navigate = useNavigate();
-
   const email = useSelector((state) => state.auth.email);
 
   const [wishlist, toggleWishlist] = useWishlist(email);
@@ -27,15 +26,18 @@ const WishList = () => {
     return wishlist.slice(startIndex, startIndex + pageSize);
   };
 
-  // Function to open the modal with the selected movie
-  const openModal = (movie) => {
+  // `openModal` 메모이제이션
+  const openModal = useCallback((movie) => {
     setSelectedMovie(movie);
     onOpen();
-  };
+  }, [onOpen]);
 
-  const goToPage = (page) => {
+
+  // 페이지 변경 메모이제이션
+  const goToPage = useCallback((page) => {
     setCurrentPage(page);
-  };
+  }, []);
+
 
   return (
     <div className="titlecards">
