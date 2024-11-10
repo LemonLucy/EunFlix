@@ -1,8 +1,58 @@
-# React + Vite
+# EunFlex 프로젝트
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EunFlex는 영화 검색, 인기 콘텐츠 탐색, 그리고 관심 목록 관리 기능을 제공하는 React 기반의 웹 애플리케이션입니다. 사용자는 필터링을 통해 원하는 영화 정보를 검색하고, 이를 관심 목록에 추가하여 관리할 수 있습니다.
 
-Currently, two official plugins are available:
+## 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **영화 검색**: 키워드, 장르, 평점, 출시일 등을 기준으로 영화 검색이 가능합니다.
+- **인기 콘텐츠 탐색**: TMDB API를 사용하여 인기 있는 영화 목록을 제공합니다.
+- **관심 목록**: 사용자가 좋아하는 영화를 관심 목록에 추가하고 관리할 수 있습니다.
+- **검색 히스토리 자동 저장**: 최근 검색어를 로컬 스토리지에 저장하여 사용자가 쉽게 이전 검색어를 선택할 수 있도록 지원합니다.
+
+## 설치 및 실행 방법
+
+1. **클론**: 이 저장소를 로컬에 클론합니다.
+   ```bash
+   git clone <repository-url>
+2. 패키지 설치: 프로젝트 디렉토리에서 의존성을 설치합니다.
+    npm install
+3. 애플리케이션 실행: 개발 서버를 실행하여 로컬에서 애플리케이션을 확인할 수 있습니다.
+    npm start
+
+## 사용된 주요 기술 스택
+
+- React: 사용자 인터페이스 구축
+- Redux: 전역 상태 관리
+- Chakra UI: UI 구성 요소
+- TMDB API: 영화 데이터 제공
+- 브랜치 전략 : 이 프로젝트는 GitFlow 브랜치 전략을 따릅니다. 주요 브랜치 구조는 다음과 같습니다.
+    - main: 애플리케이션의 최신 안정화 버전이 포함된 브랜치입니다.
+    - develop: 새로운 기능 개발 및 테스트를 위한 브랜치입니다.
+    - feature/기능명: 특정 기능 추가를 위해 만들어진 브랜치입니다.
+    - hotfix: 긴급 수정이 필요한 경우 사용하는 브랜치입니다.
+
+## 구현 세부 사항
+- 영화 검색 페이지 (/search)
+사용자는 TMDB API를 통해 장르, 평점, 최신 순, 인기 순 등으로 영화를 검색할 수 있습니다.
+검색 히스토리가 로컬 스토리지에 저장되어 빠른 접근이 가능합니다.
+반응형 디자인을 통해 모바일 화면에서도 최적화된 인터페이스를 제공합니다.
+
+- 관심 목록 페이지 (/wishlist)
+사용자는 관심 목록에 영화를 추가하고, 관심 목록에서 제거할 수 있습니다.
+관심 목록 데이터는 localstorage의 wishlistIds키에 movie.id 리스트로 저장되어 있습니다.
+
+- 검색 히스토리 자동 저장
+최근 검색어를 로컬 스토리지에 저장하여 사용자가 쉽게 이전 검색어를 선택할 수 있도록 지원합니다.
+
+- 네비게이션 바
+네비게이션 바에는 홈, 인기 영화, 검색, 관심 목록으로 이동할 수 있는 링크가 포함되어 있습니다.
+반응형으로 구성하여 작은 화면에서는 네비게이션 요소들이 세로로 배치됩니다.
+
+## 향후 개선 사항
+사용자 맞춤 추천 기능: 사용자 관심 목록을 기반으로 영화를 추천하는 기능 추가
+
+## 기여 방법
+이 저장소를 포크하고 로컬에 클론합니다.
+새로운 브랜치를 생성합니다. (feature/기능명)
+변경 사항을 커밋하고 푸시합니다.
+풀 리퀘스트를 생성하여 기여할 수 있습니다.
