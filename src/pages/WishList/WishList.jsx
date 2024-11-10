@@ -6,10 +6,14 @@ import MovieModal from '../../components//TitleCards/MovieModal'; // Import Movi
 import { useDisclosure } from '@chakra-ui/react';
 import logo from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const WishList = () => {
   const navigate = useNavigate();
-  const [wishlist, toggleWishlist] = useWishlist();
+
+  const email = useSelector((state) => state.auth.email);
+
+  const [wishlist, toggleWishlist] = useWishlist(email);
   const [selectedMovie, setSelectedMovie] = useState(null); // State for the selected movie
   const { isOpen, onOpen, onClose } = useDisclosure(); // Chakra UI modal controls
 
@@ -45,7 +49,7 @@ const WishList = () => {
                 <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} alt="movie" />
                 <div className="overlay">
                   <div className="icon-button" onClick={(e) => { 
-                    e.stopPropagation(); // Prevents modal opening when heart is clicked
+                    e.stopPropagation(); 
                     toggleWishlist(movie);
                   }}>
                     <AiFillHeart size={25} color="red" />

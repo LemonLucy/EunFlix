@@ -6,12 +6,15 @@ import useWishlist from '../../hooks/useWishlist';
 import MovieModal from './MovieModal.jsx';
 import { useDisclosure, Skeleton } from '@chakra-ui/react';
 import useShowToast from '../../hooks/useShowToast.js';
+import { useSelector } from 'react-redux';
 
 const TitleCards = ({title, filters= {}}) => {
 
+  const email = useSelector((state) => state.auth.email);
+
   const cardsRef =useRef();
   const [apiData, setApiData]=useState([])
-  const [wishlist, toggleWishlist] = useWishlist();
+  const [wishlist, toggleWishlist] = useWishlist(email);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState(true);

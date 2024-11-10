@@ -1,18 +1,48 @@
 // hooks/useWishlist.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 
-const useWishlist = () => {
-  // Initialize the wishlist from localStorage
-  const [wishlist, setWishlist] = useState(() => {
-    const savedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    return Array.isArray(savedWishlist) ? savedWishlist : [];
-  });
+const useWishlist = (email) => {
+  const [wishlist, setWishlist] = useState([]);
+  const emailRef = useRef(email);
+
+  useEffect(() => {
+    emailRef.current = email;
+    console.log("emailref",emailRef)
+  }, [email]);
+
+  useEffect(() => {
+    if (email) {
+      // Retrieve wishlist from localStorage
+      const savedData = localStorage.getItem(`wishlist_${email}`);
+      let savedWishlist=[];
+      
+      if (savedData) {
+        try {
+          const parsedData = JSON.parse(savedData);
+          if (Array.isArray(parsedData)) {
+            savedWishlist = parsedData;
+          }
+        } catch (error) {
+          console.error("Error parsing wishlist data:", error);
+        }
+      }
+
+      setWishlist(savedWishlist);
+    }
+  }, [email]);
 
   // Toggle the movie in the wishlist
   const toggleWishlist = (movie) => {
+    const currentEmail = emailRef.current; // Use the latest email from the ref
+    if (!currentEmail) {
+      console.log("Cannot toggle wishlist as email is undefined"); // Prevent action if email is undefined
+      return;
+    }
     setWishlist((prev) => {
+      const exists = prev.some((item) => item.id === movie.id);
       let updatedWishlist;
-      if (prev.some((item) => item.id === movie.id)) {
+
+      if (exists) {
         // Remove movie if already in wishlist
         updatedWishlist = prev.filter((item) => item.id !== movie.id);
       } else {
@@ -31,17 +61,14 @@ const useWishlist = () => {
         ];
       }
 
-      // Update localStorage
-      localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-      return updatedWishlist;
+      if (updatedWishlist.length !== prev.length || exists) {
+        localStorage.setItem(`wishlist_${currentEmail}`, JSON.stringify(updatedWishlist));
+        return updatedWishlist;
+      }
+
+      return prev;
     });
   };
-
-  // Synchronize state with localStorage on component mount
-  useEffect(() => {
-    const savedWishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    setWishlist(savedWishlist);
-  }, []);
 
   return [wishlist, toggleWishlist];
 };
