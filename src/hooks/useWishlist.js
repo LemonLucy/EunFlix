@@ -1,76 +1,64 @@
-// hooks/useWishlist.js
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const useWishlist = (email) => {
   const [wishlist, setWishlist] = useState([]);
-  const emailRef = useRef(email);
-
-  useEffect(() => {
-    emailRef.current = email;
-    console.log("emailref",emailRef)
-  }, [email]);
+  const [wishlistIds, setWishlistIds] = useState([]);
 
   useEffect(() => {
     if (email) {
-      // Retrieve wishlist from localStorage
+      // 로컬 스토리지에서 위시리스트 가져오기
       const savedData = localStorage.getItem(`wishlist_${email}`);
-      let savedWishlist=[];
-      
-      if (savedData) {
-        try {
-          const parsedData = JSON.parse(savedData);
-          if (Array.isArray(parsedData)) {
-            savedWishlist = parsedData;
-          }
-        } catch (error) {
-          console.error("Error parsing wishlist data:", error);
+      const savedIds = localStorage.getItem(`wishlist_ids_${email}`);
+      try {
+        const parsedData = savedData ? JSON.parse(savedData) : [];
+        const parsedIds = savedIds ? JSON.parse(savedIds) : [];
+        if (Array.isArray(parsedData)) {
+          setWishlist(parsedData);
+          setWishlistIds(parsedIds);
+        } else {
+          console.warn("Wishlist data is not an array. Resetting to empty array.");
+          setWishlist([]);
+          setWishlistIds([]);
         }
+      } catch (error) {
+        console.error("Error parsing wishlist data:", error);
+        setWishlist([]);
+        setWishlistIds([]);
       }
-
-      setWishlist(savedWishlist);
     }
   }, [email]);
 
-  // Toggle the movie in the wishlist
+  // 위시리스트에 영화 추가/제거
   const toggleWishlist = (movie) => {
-    const currentEmail = emailRef.current; // Use the latest email from the ref
-    if (!currentEmail) {
-      console.log("Cannot toggle wishlist as email is undefined"); // Prevent action if email is undefined
+    if (!email) {
+      console.warn("Cannot toggle wishlist as email is undefined");
       return;
     }
+
     setWishlist((prev) => {
       const exists = prev.some((item) => item.id === movie.id);
-      let updatedWishlist;
+      const updatedWishlist = exists
+        ? prev.filter((item) => item.id !== movie.id)
+        : [...prev, { ...movie }];
 
-      if (exists) {
-        // Remove movie if already in wishlist
-        updatedWishlist = prev.filter((item) => item.id !== movie.id);
-      } else {
-        // Add movie if not in wishlist
-        updatedWishlist = [
-          ...prev,
-          {
-            id: movie.id,
-            title: movie.title,
-            backdrop_path: movie.backdrop_path,
-            overview: movie.overview,
-            vote_average: movie.vote_average,
-            release_date: movie.release_date,
-            genre_ids: movie.genre_ids,
-          },
-        ];
-      }
+        setWishlistIds((prevIds) => {
+          const updatedIds = exists
+            ? prevIds.filter(id => id !== movie.id)
+            : [...prevIds, movie.id];
 
-      if (updatedWishlist.length !== prev.length || exists) {
-        localStorage.setItem(`wishlist_${currentEmail}`, JSON.stringify(updatedWishlist));
-        return updatedWishlist;
-      }
+          // 로컬 스토리지 업데이트 (변경사항 있을 때만)
+          if (updatedWishlist.length !== prev.length) {
+            localStorage.setItem(`wishlist_${email}`, JSON.stringify(updatedWishlist));
+            localStorage.setItem(`wishlist_ids_${email}`, JSON.stringify(updatedIds));
+          }
+          return updatedIds;
+        });
 
-      return prev;
+      return updatedWishlist;
     });
   };
 
-  return [wishlist, toggleWishlist];
+  return [wishlist,wishlistIds, toggleWishlist];
 };
 
 export default useWishlist;

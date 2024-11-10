@@ -1,5 +1,5 @@
 import './TitleCards.css'
-import React, { useRef,useEffect, useState } from 'react'
+import React, { useRef,useEffect, useState,  } from 'react'
 import PropTypes from 'prop-types';
 import { AiFillHeart } from 'react-icons/ai';
 import useWishlist from '../../hooks/useWishlist';
@@ -11,10 +11,9 @@ import { useSelector } from 'react-redux';
 const TitleCards = ({title, filters= {}}) => {
 
   const email = useSelector((state) => state.auth.email);
-
   const cardsRef =useRef();
   const [apiData, setApiData]=useState([])
-  const [wishlist, toggleWishlist] = useWishlist(email);
+  const [,wishlistIds, toggleWishlist] = useWishlist(email);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState(true);
@@ -25,7 +24,7 @@ const TitleCards = ({title, filters= {}}) => {
     setSelectedMovie(movie);
     onOpen(true);
   }
-
+  
   const options = {
     method: 'GET',
     headers: {
@@ -149,7 +148,7 @@ const TitleCards = ({title, filters= {}}) => {
                   <img src={`https://image.tmdb.org/t/p/w500${card.backdrop_path}`} alt="cards" />
                   <div className="overlay">
                     <div className="icon-button" onClick={() => toggleWishlist(card)}>
-                      <AiFillHeart size={25} cursor="pointer" color={wishlist.some((item) => item.id === card.id) ? 'red' : 'white'} />
+                      <AiFillHeart size={25} cursor="pointer" color={wishlistIds.includes(card.id) ? 'red' : 'white'} />
                     </div>
                   </div>
                   <p>{card.title}</p>
@@ -160,7 +159,15 @@ const TitleCards = ({title, filters= {}}) => {
         </div>
         <button onClick={scrollRight} className="scroll-button">{">"}</button>
       </div>
-      {selectedMovie && <MovieModal movie={selectedMovie} isOpen={isOpen} onClose={onClose} isLiked={wishlist.some((item) => item.id === selectedMovie.id)} toggleWishlist={toggleWishlist}/>}
+      {selectedMovie && (
+        <MovieModal
+          movie={selectedMovie}
+          isOpen={isOpen}
+          onClose={onClose}
+          isLiked={wishlistIds.includes(selectedMovie.id)}
+          toggleWishlist={toggleWishlist}
+        />
+      )}
     </div>
 );
 };
