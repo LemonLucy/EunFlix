@@ -123,6 +123,32 @@
     .movie-card {
       width: calc(50% - 10px); /* 2 columns on tablets */
     }
+    .search-page h1 {
+      font-size: 1.5rem;
+    }
+    .search-input-wrapper {
+      position: relative;
+      width: 1000px;
+      margin: 0 auto;
+    }
+    
+    
+    .filters {
+      gap: 5px;
+    }
+  
+    .filters select,
+    .filters input {
+      font-size: 1rem;
+      width: 100%;
+    }
+  
+    .filters button {
+      font-size: 1rem;
+      padding: 10px;
+      width: 300px;
+    }
+
   }
   
   @media (max-width: 480px) {
@@ -133,6 +159,32 @@
     .movie-card p {
       font-size: 0.9rem;
     }
+    .search-page h1 {
+      font-size: 1.5rem;
+    }
+    
+    .search-input-wrapper {
+      position: relative;
+      width: 750px; /* 너비를 크게 조정 */
+      margin: 0 auto;
+    }
+
+    .filters {
+      gap: 4px;
+    }
+  
+    .filters select,
+    .filters input {
+      font-size: 1rem;
+      width: 100%;
+    }
+  
+    .filters button {
+      font-size: 1rem;
+      padding: 10px;
+      width: 100%;
+    }
+
   }
 
   .suggestions-dropdown {

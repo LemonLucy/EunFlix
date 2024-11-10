@@ -16,7 +16,6 @@
     position: fixed;
     top: 0;
     z-index: 100;
-   
     width : 100%;
     height: auto;
   }
@@ -138,15 +137,20 @@
     }
   
     .navbar-left img {
-      width: 80px;
+      width: 100px;
     }
   }
   
   @media (max-width: 480px) {
     .navbar {
-      flex-direction: column;
+      flex-direction: row;
       align-items: flex-start;
       padding: 10px 20px;
+    }
+
+    .navbar-left {
+      width: 100px;
+      margin-top: 10px;
     }
   
     .navbar-right {
