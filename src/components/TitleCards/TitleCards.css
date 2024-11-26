@@ -144,6 +144,15 @@
     
   /* 반응형 조정 */
   @media (max-width: 768px) {
+    .titlecard-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 한 줄에 3개 */
+      gap: 10px; /* 카드 사이 간격 */
+      margin: 0 auto; /* 그리드 전체를 중앙에 배치 */
+      justify-content: center; /* 그리드 항목을 중앙 정렬 */
+      padding: 0; /* 패딩 제거 */
+    }
+
     .titlecard {
       width: 100%;
       min-width: 120px;
@@ -156,12 +165,5 @@
   
     .titlecard p {
       font-size: 0.9rem;
-    }
-    .titlecard-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 5 items per row */
-      gap: 5px; /* Spacing between items */
-      margin-top: 20px;
-      padding: 0 100px;
     }
   }

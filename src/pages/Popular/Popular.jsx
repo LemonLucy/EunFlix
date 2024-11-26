@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import '../../components/TitleCards/TitleCards.css';
 import { AiFillHeart } from 'react-icons/ai';
 import MovieModal from '../../components/TitleCards/MovieModal'; // Import MovieModal
-import { HStack, Skeleton, Stack, useDisclosure } from '@chakra-ui/react';
+import {  Skeleton, useDisclosure } from '@chakra-ui/react';
 import logo from '../../assets/logo.png'; // Ensure logo path is correct
 import { useNavigate } from 'react-router-dom';
 import useWishlist from '../../hooks/useWishlist';
