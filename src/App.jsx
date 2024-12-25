@@ -6,6 +6,7 @@ import PublicRoute from "./components/Auth/PublicRoute";
 import Popular from "./pages/Popular/Popular";
 import Search from "./pages/Search/Search";
 import WishList from "./pages/WishList/WishList";
+import OAuthRedirectHandler from './components/Auth/OAuthRedirectHandler';
 import './index.css';
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/popular' element={<PrivateRoute><Popular /></PrivateRoute>} />
         <Route path='/search' element={<PrivateRoute><Search /></PrivateRoute>} />
         <Route path='/wishlist' element={<PrivateRoute><WishList /></PrivateRoute>} />
+        <Route path="/oauth" element={<PublicRoute><OAuthRedirectHandler /></PublicRoute>} />
       </Routes>
     //</Provider>
     

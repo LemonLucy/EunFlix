@@ -41,7 +41,26 @@ const useLogin = () => {
     } 
 };
 
-  return { login };
+const loginWithKakao = async (user) => {
+  try {
+    if (!user || !user.email) {
+      dispatch(setError('Failed to retrieve user info from Kakao.'));
+      showToast('Error', 'Kakao Login failed.', 'error');
+      return;
+    }
+
+    // Redux 상태 업데이트
+    dispatch(loginSuccess(user));
+    await showToast('Success', 'Kakao Login successful!', 'success');
+
+    // 홈으로 리디렉션
+    navigate('/');
+  } catch (error) {
+    console.error('Kakao Login error:', error);
+  }
+};
+
+return { login, loginWithKakao };
 };
 
 export default useLogin;

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { setEmail, setPassword } from '../../store/actions/authActions';
+import '../../pages/Login/Login.css';
+import { Button, Checkbox } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import KakaoLogin from './KakaoLogin';
 import useLogin from '../../hooks/useLogin';
-import '../../pages/Login/Login.css'; 
-import { Button,Checkbox  } from '@chakra-ui/react';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 const Login = ({ toggleCard }) => {
   const dispatch = useDispatch();
@@ -15,7 +15,6 @@ const Login = ({ toggleCard }) => {
   const [rememberMe, setRememberMe] = useState(false);
 
   useEffect(() => {
-    // Check if there's a remembered email and password in localStorage
     const rememberedEmail = localStorage.getItem('rememberedEmail');
     const rememberedPassword = localStorage.getItem('rememberedPassword');
     if (rememberedEmail && rememberedPassword) {
@@ -26,9 +25,17 @@ const Login = ({ toggleCard }) => {
   }, [dispatch]);
 
   const onSubmit = () => {
-    console.log("Email:", email); // email 값 확인
-    console.log("Password:", password);
+    console.log('Email:', email);
+    console.log('Password:', password);
     login(email, password, rememberMe);
+  };
+
+  const handleToggleCard = () => {
+    if (toggleCard) {
+      toggleCard();
+    } else {
+      console.warn('toggleCard is not provided');
+    }
   };
 
   return (
@@ -39,19 +46,14 @@ const Login = ({ toggleCard }) => {
         type="email"
         placeholder="Email"
         value={email}
-        onChange={(e) => {
-          dispatch(setEmail(e.target.value));
-        }}
+        onChange={(e) => dispatch(setEmail(e.target.value))}
       />
       <input
         className="auth-input"
         type="password"
         placeholder="Password"
         value={password}
-        onChange={(e) => {
-          dispatch(setPassword(e.target.value));
-
-        }}
+        onChange={(e) => dispatch(setPassword(e.target.value))}
       />
       <Checkbox
         isChecked={rememberMe}
@@ -62,16 +64,14 @@ const Login = ({ toggleCard }) => {
         Remember Me
       </Checkbox>
       {error && <p className="login-error-message">{error}</p>}
-      
-      <Button
-        className="auth-button"
-        onClick={onSubmit}
-        colorScheme="#a68064"
-      >
+      <Button className="auth-button" onClick={onSubmit} colorScheme="#a68064">
         Log In
       </Button>
-      
-      <p className="auth-link" onClick={toggleCard}>
+
+      {/* 카카오 로그인 버튼 */}
+      <KakaoLogin />
+
+      <p className="auth-link" onClick={handleToggleCard}>
         Dont have an account? <b>Sign up</b>
       </p>
     </div>
@@ -79,7 +79,11 @@ const Login = ({ toggleCard }) => {
 };
 
 Login.propTypes = {
-  toggleCard: PropTypes.func.isRequired,
+  toggleCard: PropTypes.func,
+};
+
+Login.defaultProps = {
+  toggleCard: null,
 };
 
 export default Login;
