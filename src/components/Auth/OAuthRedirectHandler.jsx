@@ -69,8 +69,7 @@ const OAuthRedirectHandler = () => {
         id: userInfo.id,
         email: userInfo.kakao_account?.email || '',
         name: userInfo.properties?.nickname || 'Unknown',
-        profileImage: userInfo.properties?.profile_image || '',
-        connectedAt: userInfo.connected_at || '',
+        profileImage: userInfo.properties?.profile_image || ''
     };
 
       loginWithKakao(user); // Redux 상태 업데이트 및 리디렉션 처리
