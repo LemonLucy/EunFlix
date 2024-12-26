@@ -144,13 +144,10 @@
   
   /* 반응형 디자인 */
   @media (max-width: 768px) {
-    .navbar-left ul {
-      display: none;
-    }
     .navbar-name {
       display: block;
     }
-    
+
     .navbar-left ul {
       display: none;
     }
