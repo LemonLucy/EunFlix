@@ -23,7 +23,7 @@ const Navbar = () => {
     if (storedUser) {
       const user = JSON.parse(storedUser);
       setProfileImage(user.profileImage || ''); // 프로필 이미지 설정
-      setName(user.name || 'Unknown User'); // 이름 설정
+      setName(user.nickname || 'Unknown User'); // 이름 설정
     }
   }, []);
 
