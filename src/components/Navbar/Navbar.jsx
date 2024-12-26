@@ -15,13 +15,15 @@ const Navbar = () => {
   const navigate = useNavigate();
   const showToast = useShowToast();
   const [profileImage, setProfileImage] = useState('');
+  const [name, setName] = useState('');
 
-  // LocalStorage에서 profileImage 가져오기
+  // LocalStorage에서 사용자 정보 가져오기
   useEffect(() => {
     const storedUser = localStorage.getItem('userInfo');
     if (storedUser) {
       const user = JSON.parse(storedUser);
-      setProfileImage(user.profileImage || ''); // 기본값 설정
+      setProfileImage(user.profileImage || ''); // 프로필 이미지 설정
+      setName(user.name || 'Unknown User'); // 이름 설정
     }
   }, []);
 
@@ -68,9 +70,13 @@ const Navbar = () => {
             className="icons"
           />
           <div className="navbar-profile">
-            {/* LocalStorage에서 가져온 profileImage로 대체 */}
+            {/* 사용자 프로필 이미지 */}
             <img src={profileImage} alt="Profile" className="profile" />
             <img src={caret_icon} alt="Caret Icon" />
+
+            {/* 사용자 이름 표시 */}
+            <p className="profile-name">{name}</p>
+
             <div className="dropdown" onClick={handleLogout}>
               <p>Sign Out</p>
             </div>
