@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginSuccess } from '../../store/actions/authActions';
+import useLogin from '../../hooks/useLogin';
 
 const OAuthRedirectHandler = () => {
-  const dispatch = useDispatch();
+  const { loginWithKakao } = useLogin();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,12 +42,9 @@ const OAuthRedirectHandler = () => {
 
       // 사용자 정보 가져오기
       await fetchUserInfo(data.access_token);
-
-      // 홈으로 리디렉션
-      navigate('/');
     } catch (error) {
       console.error('Failed to fetch access token:', error);
-      navigate('/'); // 오류 시 홈으로 리디렉션
+      navigate('/');
     }
   };
 
@@ -68,16 +64,16 @@ const OAuthRedirectHandler = () => {
       const userInfo = await response.json();
       console.log('User Info:', userInfo);
 
-      // Redux 상태 업데이트
+      // 카카오 사용자 정보를 Redux 및 로컬 스토리지에 저장
       const user = {
         id: userInfo.id,
         email: userInfo.kakao_account?.email || '',
         name: userInfo.properties?.nickname || 'Unknown',
-      };
-      dispatch(loginSuccess(user));
+        profileImage: userInfo.properties?.profile_image || '',
+        connectedAt: userInfo.connected_at || '',
+    };
 
-      // 사용자 정보를 localStorage에 저장
-      localStorage.setItem('kakaoUser', JSON.stringify(user));
+      loginWithKakao(user); // Redux 상태 업데이트 및 리디렉션 처리
     } catch (error) {
       console.error('Failed to fetch user info:', error);
     }
