@@ -43,7 +43,7 @@ const useLogin = () => {
 
 const loginWithKakao = async (user) => {
   try {
-    if (!user || !user.email) {
+    if (!user) {
       dispatch(setError('Failed to retrieve user info from Kakao.'));
       showToast('Error', 'Kakao Login failed.', 'error');
       return;
@@ -59,6 +59,7 @@ const loginWithKakao = async (user) => {
     console.error('Kakao Login error:', error);
   }
 };
+
 
 return { login, loginWithKakao };
 };
