@@ -50,7 +50,7 @@ const Navbar = () => {
             <li onClick={() => navigate('/search')}>Search</li>
           </ul>
           {/* 사용자 이름 표시 */}
-          <p>{name}</p>
+          <p className="navbar-name">{name}</p>
         </div>
         <div className="navbar-right">
           <AiFillHeart
