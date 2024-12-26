@@ -49,24 +49,23 @@ const Navbar = () => {
             <li onClick={() => navigate('/wishlist')}>WishList</li>
             <li onClick={() => navigate('/search')}>Search</li>
           </ul>
-          {/* 사용자 이름 표시 */}
-          <p className="profile-name">{name}</p>
+          
         </div>
         <div className="navbar-right">
           <AiFillHeart
-            color="pink"
+            color="white"
             onClick={() => navigate('/wishlist')}
             size={25}
             className="icons"
           />
           <HiFire
-            color="pink"
+            color="white"
             onClick={() => navigate('/popular')}
             size={50}
             className="icons"
           />
           <IoSearch
-            color="pink"
+            color="white"
             onClick={() => navigate('/search')}
             size={50}
             className="icons"
@@ -79,6 +78,8 @@ const Navbar = () => {
             <img src={caret_icon} alt="Caret Icon" />
 
             <div className="dropdown" onClick={handleLogout}>
+                {/* 사용자 이름 표시 */}
+          <p className="profile-name">{name}</p>
               <p>Sign Out</p>
             </div>
           </div>
