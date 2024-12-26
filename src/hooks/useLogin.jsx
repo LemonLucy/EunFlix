@@ -49,18 +49,9 @@ const loginWithKakao = async (user) => {
       return;
     }
 
-    // 사용자 정보 객체에 profileImage 추가
-    const updatedUser = {
-      ...user,
-      profileImage: user.profileImage || '', // profileImage가 없는 경우 기본값 설정
-    };
-
     // Redux 상태 업데이트
-    dispatch(loginSuccess(updatedUser));
+    dispatch(loginSuccess(user));
     await showToast('Success', 'Kakao Login successful!', 'success');
-
-    // LocalStorage에 사용자 정보 저장
-    localStorage.setItem('userInfo', JSON.stringify(updatedUser));
 
     // 홈으로 리디렉션
     navigate('/');
@@ -68,7 +59,6 @@ const loginWithKakao = async (user) => {
     console.error('Kakao Login error:', error);
   }
 };
-
 
 return { login, loginWithKakao };
 };
