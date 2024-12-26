@@ -79,7 +79,7 @@ const Navbar = () => {
 
             <div className="dropdown" onClick={handleLogout}>
                 {/* 사용자 이름 표시 */}
-          <p className="profile-name">{name}</p>
+          <p>{name}</p>
               <p>Sign Out</p>
             </div>
           </div>
