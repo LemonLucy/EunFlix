@@ -49,8 +49,7 @@ const Navbar = () => {
             <li onClick={() => navigate('/wishlist')}>WishList</li>
             <li onClick={() => navigate('/search')}>Search</li>
           </ul>
-          {/* 사용자 이름 표시 */}
-          <p className="navbar-name">{name}</p>
+          
         </div>
         <div className="navbar-right">
           <AiFillHeart
@@ -79,7 +78,8 @@ const Navbar = () => {
             <img src={caret_icon} alt="Caret Icon" />
 
             <div className="dropdown" onClick={handleLogout}>
-                
+                {/* 사용자 이름 표시 */}
+          <p className="navbar-name">{name}</p>
               <p>Sign Out</p>
             </div>
           </div>
