@@ -73,6 +73,9 @@ const OAuthRedirectHandler = () => {
     };
 
       loginWithKakao(user); // Redux 상태 업데이트 및 리디렉션 처리
+
+      // 홈으로 리디렉션
+      navigate('/');
     } catch (error) {
       console.error('Failed to fetch user info:', error);
     }
