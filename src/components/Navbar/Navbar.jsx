@@ -71,11 +71,10 @@ const Navbar = () => {
           />
           <div className="navbar-profile">
             {/* 사용자 프로필 이미지 */}
-            <img src={profileImage} alt="Profile" className="profile" />
-            <img src={caret_icon} alt="Caret Icon" />
-
             {/* 사용자 이름 표시 */}
             <p className="profile-name">{name}</p>
+            <img src={profileImage} alt="Profile" className="profile" />
+            <img src={caret_icon} alt="Caret Icon" />
 
             <div className="dropdown" onClick={handleLogout}>
               <p>Sign Out</p>
