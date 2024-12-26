@@ -49,6 +49,8 @@ const Navbar = () => {
             <li onClick={() => navigate('/wishlist')}>WishList</li>
             <li onClick={() => navigate('/search')}>Search</li>
           </ul>
+          {/* 사용자 이름 표시 */}
+          <p className="profile-name">{name}</p>
         </div>
         <div className="navbar-right">
           <AiFillHeart
@@ -69,9 +71,8 @@ const Navbar = () => {
             size={50}
             className="icons"
           />
-          {/* 사용자 이름 표시 */}
-          <p className="profile-name">{name}</p>
           
+
           <div className="navbar-profile">
             {/* 사용자 프로필 이미지 */}
             <img src={profileImage} alt="Profile" className="profile" />
