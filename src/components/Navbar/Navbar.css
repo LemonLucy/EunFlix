@@ -135,6 +135,7 @@
     font-size: 16px;
     margin-left: 10px;
     font-weight: bold;
+    display: block; /* 이름을 강제로 표시 */
   }
   .navbar-left {
     display: flex;
