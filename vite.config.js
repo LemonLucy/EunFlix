@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      'process.env': env, // 환경 변수를 process.env로 정의
+      'import.meta.env': JSON.stringify(env), // import.meta.env로 환경 변수를 설정
     },
   };
 });
